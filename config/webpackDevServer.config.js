@@ -82,10 +82,10 @@ module.exports = function(proxy, allowedHost) {
     },
     public: allowedHost,
     proxy: {
-        '**' : {
-          target: 'http://cangdu.org:8001',
-          changeOrigin: true,
-        }
+        // '**' : {
+        //   target: 'http://cangdu.org:8001',
+        //   changeOrigin: true,
+        // }
     },
     before(app, server) {
       if (fs.existsSync(paths.proxySetup)) {
