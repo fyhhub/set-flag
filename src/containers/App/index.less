@@ -1,0 +1,52 @@
+.app {
+    width: calc(100vw);
+    height: calc(100vh);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .app-content {
+        margin-top: -60px;
+        cursor: pointer;
+        .app-content-title {
+            font-family: cursive;
+            font-weight: 400;
+            font-size: 100px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 5px 0 0 #000,
+                          -5px 0 0 #000,
+                          0 5px 0 #000,
+                          0 -5px 0 #000,
+                          4px 4px #000,
+                          -4px -4px 0 #000,
+                          4px -4px 0 #000,
+                          -4px 4px 0 #000;
+            -webkit-transform-origin: 0 0;
+            transform-origin: 0 0;
+            color:#fff;
+            user-select: none;
+            &:hover {
+                animation: hvr-wobble-horizontal 0.9s ease-in-out;
+            }
+        }
+        .app-content-flag {
+            margin:50px auto;
+            text-align: center;
+            color: #fff;
+            line-height:0.85;
+            font-family: Tahoma, Geneva, sans-serif;
+            font-weight: bold;
+            span {
+                margin-top: 60px;
+                font-family: 'Pacifico';
+                font-weight: 200;
+                display:block;
+                font-size: 25px;
+            }
+        }
+    }
+}
+  
+
+  
