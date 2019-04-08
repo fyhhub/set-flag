@@ -12,6 +12,6 @@ export default [
         path: '/home',
         exact: true,
         component: Home,
-        children: []
+        protected: true
     }
 ];

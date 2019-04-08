@@ -6,12 +6,11 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                
+                asdsad
             </div>
         )
     }
 }
-
 const mapStateToProps = (state) => {
     return ({
         count: state.app.count

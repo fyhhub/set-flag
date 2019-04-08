@@ -1,6 +1,7 @@
 const PLUS = "counter/PLUS";
 const initState = {
-  count: 0
+  count: 0,
+  isLogin: false
 }
 export default (state = initState, action = {}) => {
   switch (action.type) {

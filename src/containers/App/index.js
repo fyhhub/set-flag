@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Button } from 'antd'
 import './index.less'
 class App extends React.Component {
     componentDidMount() {
@@ -42,6 +43,9 @@ class App extends React.Component {
                     <div className='app-content-flag'>
                         <span>Flag: 每天坚持英语四级</span>    
                         <span>您已坚持 <em>100</em> 天</span>
+                    </div>
+                    <div className='app-content-btn'>
+                        <Button type='primary' size='large'><Link to='/home'>开始探索</Link></Button>  
                     </div>
                 </div>
             </div>
