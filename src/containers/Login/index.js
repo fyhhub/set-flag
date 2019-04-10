@@ -1,11 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
     Form, Icon, Input, Button, Checkbox, Avatar 
 } from 'antd';
 import './index.less'
 import { connect } from 'react-redux'
 import { getAvatar, login } from '../../redux/actions/login'
+import { getLocalStorage, setLocalStorage } from '../../utils/localStorage' 
 class Login extends React.Component {
+    componentDidMount() {
+        this.initChecked()
+    }
     render() {
         const { getFieldDecorator } = this.props.form
         const { avatar } = this.props
@@ -38,9 +43,9 @@ class Login extends React.Component {
                             getFieldDecorator('remember', {
                                 valuePropName: 'checked',
                                 initialValue: true,
-                            })(<Checkbox>记住我</Checkbox>)
+                            })(<Checkbox onChange={this.handleChecked}>记住我</Checkbox>)
                         }
-                        <a href="#">没有账号？现在注册</a>
+                        <Link to='/register'>没有账号？现在注册</Link>
                         <br/>
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             登录
@@ -61,15 +66,36 @@ class Login extends React.Component {
             }
         });
     }
-    handleBlur = async (e) => {
+    handleBlur = (e) => {
         let username = e.target.value
         let { handleGetAvatar } = this.props
         handleGetAvatar(username)
+    }
+    handleChecked = (e) => {
+        let { username } = this.props
+        console.log(this.props);
+        
+        if (e.target.checked) {
+            setLocalStorage('loginRemember', username)
+        } else if (!e.target.checked) {
+            setLocalStorage('loginRemember', '')
+        }
+    }
+    initChecked = () => {
+        let username = getLocalStorage('loginRemember')
+        let { setFieldsValue } = this.props.form
+        if (username) {
+            setFieldsValue({'userName': username})
+            setFieldsValue({'remember': true})
+        } else {
+            setFieldsValue({'remember': false})
+        }
     }
 }
 const WrappedLoginForm = Form.create({ name: 'normal_login' })(Login);
 const mapStateToProps = (state) => ({
     avatar: state.login.avatar,
+    username: state.login.username
 })
 const mapDispatchToProps = (dispatch) => ({
     handleGetAvatar(username) {

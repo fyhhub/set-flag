@@ -13,19 +13,23 @@ export default (state = initState, action = {}) => {
         case GET_AVATAR:
             return {
                 ...state,
-                avatar: action.avatar
+                avatar: action.avatar,
+                username: action.username
             }
         case LOGIN:
             return {
-                ...state
+                ...state,
+                username: action.username,
+                token: action.token
             }
         default:
             return state
     }
 }
-const getAvatarAction = (avatar) => ({
+const getAvatarAction = ({avatar, username}) => ({
     type: GET_AVATAR,
-    avatar
+    avatar,
+    username
 })
 export const getAvatar =  (username) => async (dispatch) => {
     let data
@@ -33,13 +37,12 @@ export const getAvatar =  (username) => async (dispatch) => {
         let res = await ajax('/login/getAvatar', { username })
         data = res.data
         if (data.code === 0) {
-            dispatch(getAvatarAction(data.data.avatar))
+            dispatch(getAvatarAction({avatar: data.data.avatar, username}))
         }
     } catch(e) {
         console.log(e)
     }
 }
-
 
 const loginAction = (userInfo) => ({
     type: LOGIN,

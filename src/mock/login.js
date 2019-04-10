@@ -20,7 +20,6 @@ let checkNameS = {
 Mock.mock(/\/login\/getAvatar/, 'get', options => {
     return checkNameS   
 })
-
 Mock.mock('/login', 'post', options => {
     return login   
 })
