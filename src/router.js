@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 let isLogin
 const createRoutes = function(routes) {
     let children = []
-
     const renderRoute = function(route) {
         if (route.protected && !isLogin) {
             route = {
