@@ -2,6 +2,7 @@ import asyncComponent from '../utils/asyncComponent'
 const App = asyncComponent(() => import('../containers/App/index.js'))
 const Home = asyncComponent(() => import('../containers/Home/index.js'))
 const Login = asyncComponent(() => import('../containers/Login/index.js'))
+const Register = asyncComponent(() => import('../containers/Register/index.js'))
 export default [
     {
         path: '/',
@@ -18,5 +19,10 @@ export default [
         path: '/login',
         exact: true,
         component: Login
+    },
+    {
+        path: '/register',
+        exact: true,
+        component: Register
     }
 ];

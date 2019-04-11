@@ -73,8 +73,6 @@ class Login extends React.Component {
     }
     handleChecked = (e) => {
         let { username } = this.props
-        console.log(this.props);
-        
         if (e.target.checked) {
             setLocalStorage('loginRemember', username)
         } else if (!e.target.checked) {

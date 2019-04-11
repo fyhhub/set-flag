@@ -4,8 +4,8 @@ Mock.setup({
     timeout: 1000
 })
 let login =  {
-    code: 1,
-    msg: '登录失败,用户名或密码错误',
+    code: 0,
+    msg: '登录成功',
     data: {
         token: Random.string(32, 150)
     }
@@ -22,4 +22,16 @@ Mock.mock(/\/login\/getAvatar/, 'get', options => {
 })
 Mock.mock('/login', 'post', options => {
     return login   
+})
+Mock.mock(/\/register\/validate_username/, 'get', options => {
+    // return {
+    //     code: 1,
+    //     msg: '该用户名不存在',
+    //     data: {}
+    // }
+    return {
+        code: 0,
+        msg: '',
+        data: {}
+    }
 })

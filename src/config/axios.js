@@ -1,24 +1,22 @@
 import axios from 'axios'
-import '../mock/login'
-
+// import '../mock/login'
 import {message} from 'antd'
 const Axios = axios.create({
+    baseURL: 'http://172.20.10.9:8080',
     timeout: 5000,
     responseType: 'json',
-    withCredentials: true,  // 支持跨域携带cookie
     headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     },
+    
 })
 Axios.interceptors.request.use(config => {
-    console.log(config);
     return config
 }, error => {
     message.error('请求错误', 2)
     return Promise.reject(error)
 })
 Axios.interceptors.response.use(config => {
-    console.log(config);
     return config
 }, error => {
     message.error('响应错误', 2)

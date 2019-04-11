@@ -34,7 +34,7 @@ const getAvatarAction = ({avatar, username}) => ({
 export const getAvatar =  (username) => async (dispatch) => {
     let data
     try {
-        let res = await ajax('/login/getAvatar', { username })
+        let res = await ajax('/setFlag/getAvator', { username }, 'post')
         data = res.data
         if (data.code === 0) {
             dispatch(getAvatarAction({avatar: data.data.avatar, username}))
