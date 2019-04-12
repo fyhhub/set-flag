@@ -1,0 +1,17 @@
+package setflag.dao;
+
+import setflag.domain.User;
+
+public interface UserDao {
+
+	String getAvatar(String data) throws Exception;
+
+	User login(String username, String password) throws Exception;
+
+	void regist(User user) throws Exception;
+
+	void addToken(String user_token, String user_id) throws Exception;
+
+	User checkUsername(String username) throws Exception;
+
+}

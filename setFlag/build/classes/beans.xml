@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="CategoryService" class="setflag.service.impl.CategoryServiceImpl"></bean>
+	<bean id="ProductService" class="setflag.service.impl.ProductServiceImpl"></bean>
+	<bean id="UserService" class="setflag.service.impl.UserServiceImpl"></bean>
+	<bean id="OrderService" class="setflag.service.impl.OrderServiceImpl"></bean>
+
+   <bean id="ProductDao" class="setflag.dao.impl.ProductDaoImpl"/>
+   <bean id="UserDao" class="setflag.dao.impl.UserDaoImpl"/>
+   <bean id="CategoryDao" class="setflag.dao.impl.CategoryDaoImpl"/>
+   <bean id="OrderDao" class="setflag.dao.impl.OrderDaoImpl"/>
+</beans>
