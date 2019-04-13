@@ -1,12 +1,10 @@
 import ajax from '../../config/ajax'
 import { message } from 'antd'
-
+import { setUserInfo } from './global'
 const GET_AVATAR = 'login/GET_AVATAR'
-const LOGIN = 'login/LOGIN'
 const initState = {
     username: '',
-    token: '',
-    avatar: '',
+    avatar: ''
 }
 export default (state = initState, action = {}) => {
     switch (action.type) {
@@ -15,12 +13,6 @@ export default (state = initState, action = {}) => {
                 ...state,
                 avatar: action.avatar,
                 username: action.username
-            }
-        case LOGIN:
-            return {
-                ...state,
-                username: action.username,
-                token: action.token
             }
         default:
             return state
@@ -32,34 +24,31 @@ const getAvatarAction = ({avatar, username}) => ({
     username
 })
 export const getAvatar =  (username) => async (dispatch) => {
-    let data
     try {
-        let res = await ajax('/setFlag/getAvator', { username }, 'post')
-        data = res.data
-        if (data.code === 0) {
-            dispatch(getAvatarAction({avatar: data.data.avatar, username}))
+        let { data } = await ajax('/login/getAvator', { username }, 'post')
+        let { code } = data
+        let { avatar } = data.data
+        if (code === 0) {
+            dispatch(getAvatarAction({avatar: avatar, username}))
         }
     } catch(e) {
         console.log(e)
     }
 }
 
-const loginAction = (userInfo) => ({
-    type: LOGIN,
-    ...userInfo
-})
 export const login = (userInfo) => async (dispatch) => {
-    let data
     try {
         message.loading('正在登录...', 0)
-        let res = await ajax('/login', { ...userInfo }, 'post')
-        data = res.data
+        let { data } = await ajax('/login', { ...userInfo }, 'post')
+        let { code, msg } = data
+        let { token } = data.data
         message.destroy()
-        if (data.code === 0) {
-            message.success(data.msg, 2)
-            dispatch(loginAction(res))
+        if (code === 0) {
+            message.success(msg, 2)
+            dispatch(setUserInfo(data.data))
+            window.localStorage.setItem('token', token)
         } else {
-            message.error(data.msg, 3)
+            message.error(msg, 3)
         }
     } catch(e) {
         message.destroy()

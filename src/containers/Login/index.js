@@ -9,11 +9,49 @@ import { getAvatar, login } from '../../redux/actions/login'
 import { getLocalStorage, setLocalStorage } from '../../utils/localStorage' 
 class Login extends React.Component {
     componentDidMount() {
+        const { getFieldValue } = this.props.form
         this.initChecked()
+        this.props.handleGetAvatar(getFieldValue('userName'))
+    }
+    
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                const { handleLogin } = this.props
+                handleLogin(values)
+            }
+        });
+    }
+    handleBlur = (e) => {
+        const username = e.target.value
+        const { handleGetAvatar } = this.props
+        handleGetAvatar(username)
+    }
+    handleChecked = (e) => {
+        const { username } = this.props
+        if (e.target.checked) {
+            setLocalStorage('loginRemember', username)
+        } else if (!e.target.checked) {
+            setLocalStorage('loginRemember', '')
+        }
+    }
+    initChecked = () => {
+        const username = getLocalStorage('loginRemember')
+        const { setFieldsValue } = this.props.form
+        if (username) {
+            setFieldsValue({'userName': username})
+            setFieldsValue({'remember': true})
+        } else {
+            setFieldsValue({'remember': false})
+        }
     }
     render() {
         const { getFieldDecorator } = this.props.form
-        const { avatar } = this.props
+        const { avatar, token } = this.props
+        if (token) {
+            this.props.history.push('/home')
+        }
         return (
             <div className='login'>
                 <Form onSubmit={this.handleSubmit} className="login-form">
@@ -56,44 +94,12 @@ class Login extends React.Component {
         )
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                let { handleLogin } = this.props
-                console.log(values);
-                handleLogin(values)
-            }
-        });
-    }
-    handleBlur = (e) => {
-        let username = e.target.value
-        let { handleGetAvatar } = this.props
-        handleGetAvatar(username)
-    }
-    handleChecked = (e) => {
-        let { username } = this.props
-        if (e.target.checked) {
-            setLocalStorage('loginRemember', username)
-        } else if (!e.target.checked) {
-            setLocalStorage('loginRemember', '')
-        }
-    }
-    initChecked = () => {
-        let username = getLocalStorage('loginRemember')
-        let { setFieldsValue } = this.props.form
-        if (username) {
-            setFieldsValue({'userName': username})
-            setFieldsValue({'remember': true})
-        } else {
-            setFieldsValue({'remember': false})
-        }
-    }
 }
 const WrappedLoginForm = Form.create({ name: 'normal_login' })(Login);
 const mapStateToProps = (state) => ({
     avatar: state.login.avatar,
-    username: state.login.username
+    username: state.login.username,
+    token: state.global.userInfo.token
 })
 const mapDispatchToProps = (dispatch) => ({
     handleGetAvatar(username) {

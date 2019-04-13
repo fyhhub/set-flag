@@ -1,19 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import './index.less'
 class Home extends React.Component {
-    componentDidMount() {
-    }
     render() {
         return (
-            <div>
-                asdsad
+            <div className='home'>
+
             </div>
         )
     }
 }
-const mapStateToProps = (state) => {
-    return ({
-        count: state.app.count
-    })
-}
-export default connect(mapStateToProps, null)(Home)
+
+export default Home

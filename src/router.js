@@ -2,17 +2,10 @@ import React from "react"
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
 import routeConfig from "./config/routeConfig"
 import { connect } from 'react-redux'
-let isLogin
+import Auth from './utils/Auth'
 const createRoutes = function(routes) {
     let children = []
     const renderRoute = function(route) {
-        if (route.protected && !isLogin) {
-            route = {
-                ...route,
-                component: () => <Redirect to='/login' />,
-                children: []
-            }
-        }
         if (route.component && route.children) {
             let childrenRoutes = createRoutes(route.children)
             children.push(
@@ -46,9 +39,8 @@ const createRoutes = function(routes) {
 }
 class AppRouter extends React.Component {
     render() {
-        isLogin = this.props.app.isLogin
         let routes = createRoutes(routeConfig)
-        return <Router>{routes}</Router>
+        return <Router><Route path='/' render={(props => <Auth {...props}>{routes}</Auth>)}></Route></Router>
     }
 }
 const mapStateToProps = (state) => ({
