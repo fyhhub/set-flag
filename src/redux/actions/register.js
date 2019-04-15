@@ -1,5 +1,6 @@
 import ajax from '../../config/ajax'
 import { setUserInfo } from './global'
+import parseData from '../../utils/parseData'
 const VALIDATE_USERNAME = 'register/VALIDATE_USERNAME'
 const initState = {
     validateUserNameStatus: '',
@@ -27,8 +28,8 @@ export const validateUserName = value => async dispatch => {
     let { userName } = value
     try {
         dispatch(setValidateUserNameStatus('validating'))
-        let { data } = await ajax('/register/validate_username', { userName }, 'post')
-        let { code, msg } = data
+        const res = await ajax('/register/validate_username', { userName }, 'post')
+        const {code, msg} = parseData(res)
         if (code === 1) {
             dispatch(setValidateUserNameStatus('error', msg))
         } else if (code === 0) {
@@ -42,15 +43,13 @@ export const validateUserName = value => async dispatch => {
 
 export const register = values => async dispatch => {
     try {
-        let { data } = await ajax('/register', values, 'post')
-        let { code } = data
-        let { token } = data.data
+        const res = await ajax('/register', values, 'post')
+        const {code, msg, data} = parseData(res)
         if (code === 0) {
-            window.localStorage.setItem('token', token)
+            window.localStorage.setItem('token', data.token)
             dispatch(setUserInfo(data.data))
         }
     } catch (e) {
-        
         console.log(e)
     }
 }

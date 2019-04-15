@@ -3,6 +3,7 @@ const App = asyncComponent(() => import('../containers/App/index.js'))
 const SetFlag = asyncComponent(() => import('../containers/SetFlag/index.js'))
 const Login = asyncComponent(() => import('../containers/Login/index.js'))
 const Register = asyncComponent(() => import('../containers/Register/index.js'))
+const Home = asyncComponent(() => import('../containers/Home/index.js'))
 export default [
     {
         path: '/',
@@ -16,7 +17,7 @@ export default [
             {
                 path: '/home',
                 exact: true,
-                component: SetFlag
+                component: Home
             },
             {
                 path: '/login',
@@ -29,5 +30,7 @@ export default [
                 component: Register
             }
         ]
-    }
+    },
+
 ]
+

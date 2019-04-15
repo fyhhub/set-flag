@@ -1,6 +1,7 @@
 import ajax from '../../config/ajax'
 import { message } from 'antd'
 import { setUserInfo } from './global'
+import parseData from '../../utils/parseData'
 const GET_AVATAR = 'login/GET_AVATAR'
 const initState = {
     username: '',
@@ -25,11 +26,10 @@ const getAvatarAction = ({avatar, username}) => ({
 })
 export const getAvatar =  (username) => async (dispatch) => {
     try {
-        let { data } = await ajax('/login/getAvator', { username }, 'post')
-        let { code } = data
-        let { avatar } = data.data
+        let res = await ajax('/login/getAvator', { username }, 'post')
+        const {code, msg, data} = parseData(res)
         if (code === 0) {
-            dispatch(getAvatarAction({avatar: avatar, username}))
+            dispatch(getAvatarAction({avatar: data.avatar, username}))
         }
     } catch(e) {
         console.log(e)
@@ -39,14 +39,13 @@ export const getAvatar =  (username) => async (dispatch) => {
 export const login = (userInfo) => async (dispatch) => {
     try {
         message.loading('正在登录...', 0)
-        let { data } = await ajax('/login', { ...userInfo }, 'post')
-        let { code, msg } = data
-        let { token } = data.data
+        const res = await ajax('/login', { ...userInfo }, 'post')
+        const {code, msg, data} = parseData(res)
         message.destroy()
         if (code === 0) {
             message.success(msg, 2)
-            dispatch(setUserInfo(data.data))
-            window.localStorage.setItem('token', token)
+            dispatch(setUserInfo(data))
+            window.localStorage.setItem('token', data.token)
         } else {
             message.error(msg, 3)
         }

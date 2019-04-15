@@ -50,7 +50,11 @@ class Login extends React.Component {
         const { getFieldDecorator } = this.props.form
         const { avatar, token } = this.props
         if (token) {
-            this.props.history.push('/home')
+            if (token) {
+                setTimeout(() => {
+                    this.props.history.goBack()
+                }, 1500)
+            }
         }
         return (
             <div className='login'>

@@ -1,9 +1,27 @@
-console.time('time')
-function fib(n) {
-    if (n === 1 || n === 2) {
-        return 1
+var permute = function(nums) {
+    let res = []
+    let used = []
+    function Permutation(nums, index, p) {
+        if (index === nums.length) {
+            res.push(p)
+            return
+        }
+        for (let i = 0;i < nums.length;i++) {
+            if (!used[i]) {
+                p.push(nums[i])
+                used[i] = true
+                Permutation(nums, index + 1, p)
+                p.pop()
+                used[i] = false
+
+            }
+        }
+        return
     }
-    return fib(n - 1) + fib(n - 2)
-}
-console.log(fib(40));
-console.timeEnd('time')
+    if (!nums.length) {
+        return res
+    }
+    Permutation(nums, 0, [])
+    return res
+};
+console.log(permute([1,2]));

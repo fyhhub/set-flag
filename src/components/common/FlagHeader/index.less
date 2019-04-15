@@ -1,0 +1,102 @@
+@fontSize: 16px;
+.flag-header {
+    position: fixed;
+    width: 100vw;
+    height: 60px;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    box-shadow: 0 1px 3px rgba(26,26,26,.1);
+    background-clip: content-box;
+    background-color: #fff;
+    .flag-header-main {
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .flag-header-left {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            .flag-logo {
+                font-size: 35px;
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
+            nav {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                margin-left: 20px;
+                .nav-item {
+                    padding: 10px;
+                    font-size: 18px;
+                    font-weight: 200;
+                    color: rgb(133, 144, 166);
+                    &:hover {
+                        color: #1890ff;
+                    }
+                }
+            }
+        }
+        .flag-header-right {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .login-btn {
+                margin-right: 20px;
+            }
+            .avatar-content {
+                display: flex;
+                justify-items: center;
+                align-items: center;
+                padding: 5px;
+                cursor: pointer;
+                transition: all 0.5s ease-in-out;
+                &:hover {
+                    background-color: rgba(24, 144, 255, 0.5);
+                    border-radius: 9px;
+                }
+                .nickname {
+                    margin-left: 20px;
+                    font-family: 'Pacifico'; 
+                    font-size: 19px;
+                }
+            }
+        }
+    }
+}
+
+.nav-active {
+    color: #1890ff;
+}
+
+.userInfo-popover {
+    padding: 0 10px;
+    > div {
+        padding: 10px 0;
+    }
+    .exit {
+        width: 100%;
+        border-top: 1px solid #ebedf0;
+        font-size: @fontSize;
+        text-align: center;
+        cursor: pointer;
+        span {
+            margin-left: 10px;
+        }
+    }
+    .personal-center {
+        width: 100%;
+        border-top: 1px solid #ebedf0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: @fontSize;
+        a {
+            color: inherit;
+            margin-left: 10px;
+        }
+    }
+}

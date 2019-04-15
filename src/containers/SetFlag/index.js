@@ -36,14 +36,14 @@ class App extends React.Component {
     }
     render() {
         return (
-            <div className='app background' ref='app'>
-                <div className='app-content'>
-                    <span className='app-content-title hvr-wobble-horizontal'>立个 Flag</span>
-                    <div className='app-content-flag'>
+            <div className='setFlag background' ref='app'>
+                <div className='setFlag-content'>
+                    <span className='setFlag-content-title hvr-wobble-horizontal'>立个 Flag</span>
+                    <div className='setFlag-content-flag'>
                         <span>Flag: 每天坚持英语四级</span>    
                         <span>您已坚持 <em>100</em> 天</span>
                     </div>
-                    <div className='app-content-btn'>
+                    <div className='setFlag-content-btn'>
                         <Button type='primary' size='large'><Link to='/home'>开始探索</Link></Button>  
                     </div>
                 </div>

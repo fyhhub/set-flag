@@ -13,7 +13,7 @@ export default class Auth extends React.Component {
     render() {
         const protects = []
         if (protects.includes(this.props.location.pathname)) {
-            if (!window.localStorage.getItem('token')) {
+            if (!store.getState().global.token) {
                 return <Redirect to='/login'/>
             }
         } else {
