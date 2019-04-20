@@ -1,0 +1,25 @@
+.bookmark {
+    position: absolute;
+}
+.bookmark .before { /*做一个书签效果*/
+    position: absolute; /*必须*/
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 0;
+    padding-right: 10px;
+    font-weight: bold;
+    line-height: 0;
+    color: #fff;
+    border-right-color: transparent; /*右边框透明，变成空缺的角*/
+    box-shadow: 0 5px 5px -5px #000;
+}
+.bookmark .after { /*书签的夹角*/
+    position: absolute;
+    top: 30px;
+    left: 0px;
+    border: 4px solid rgba(0, 0, 0, 0.7);
+    border-left-color: transparent;
+    border-bottom-color: transparent;
+}
+

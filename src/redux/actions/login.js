@@ -27,7 +27,7 @@ const getAvatarAction = ({avatar, username}) => ({
 export const getAvatar =  (username) => async (dispatch) => {
     try {
         let res = await ajax('/login/getAvator', { username }, 'post')
-        const {code, msg, data} = parseData(res)
+        const {code, data} = parseData(res)
         if (code === 0) {
             dispatch(getAvatarAction({avatar: data.avatar, username}))
         }

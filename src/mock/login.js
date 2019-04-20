@@ -38,19 +38,13 @@ let checkNameS = {
 }
 
 Mock.mock('/setFlag/login/getAvator', 'post', options => {
-    console.log(options);
     return checkToken
 })
 Mock.mock('/setFlag/login', 'post', options => {
-    console.log(options);
-    return checkNameS   
+    return login   
 })
 
 Mock.mock('/setFlag/check_token', 'post', options => {
-    let { body } = options
-    body = JSON.parse(body)
-    console.log(body);
-    
     return checkToken   
 })
         

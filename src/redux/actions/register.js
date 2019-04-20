@@ -44,7 +44,7 @@ export const validateUserName = value => async dispatch => {
 export const register = values => async dispatch => {
     try {
         const res = await ajax('/register', values, 'post')
-        const {code, msg, data} = parseData(res)
+        const {code, data} = parseData(res)
         if (code === 0) {
             window.localStorage.setItem('token', data.token)
             dispatch(setUserInfo(data.data))

@@ -4,10 +4,17 @@ import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { checkToken } from '../../../redux/actions/global'
 import './index.less'
+const handleClickExit = (e) => {
+    window.localStorage.removeItem('token')
+    window.location.reload()
+}
 const content = (
     <div className='userInfo-popover'>
-        <div className='personal-center'><Icon type='user'/><Link>个人中心</Link></div>
-        <div className='exit'><Icon type='logout'/><span>退出登录</span></div>
+        <div className='personal-center'>
+            <Icon type='user'/>
+            {/* <Link>个人中心</Link> */}
+        </div>
+        <div className='exit' onClick={handleClickExit}><Icon type='logout'/><span>退出登录</span></div>
     </div>
 )
 class FlagHeader extends Component {
@@ -16,14 +23,14 @@ class FlagHeader extends Component {
     }
     handleClick = (e) => {
         this.props.history.push('/register')
+        this.setState({ isLogin:true })
     }
     render() {
         const token = window.localStorage.getItem('token')
         const { handleCheckToken, userInfo } = this.props
         if (!this.state.isLogin) {
-            if (token) {
+            if (token && token !== 'undefined') {
                 handleCheckToken(token)
-                this.setState({ isLogin:true })
             }
         } 
         return (
