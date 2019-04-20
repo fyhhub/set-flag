@@ -109,7 +109,7 @@ class Register extends React.Component {
         }
         
         const { validateUserNameStatus, help, userInfo } = this.props
-        console.log(userInfo);
+        console.log(this.props);
         if (userInfo.token) {
             setTimeout(() => {
                 this.props.history.goBack()
