@@ -17,15 +17,14 @@ import net.sf.json.JSONObject;
 import setflag.domain.User;
 import setflag.service.UserService;
 import setflag.utils.BeanFactory;
-import setflag.utils.JwtToken;
-import setflag.utils.MD5Utils;
 
 /**
- * 用户登录
+ * 检验token密钥
  */
-public class LoginServlet extends HttpServlet {
+public class Check_tokenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final Logger log = Logger.getLogger(LoginServlet.class);
+	public static final Logger log = Logger.getLogger(Check_tokenServlet.class);
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
@@ -39,42 +38,37 @@ public class LoginServlet extends HttpServlet {
 			log.info("入参信息："+bodyInfo);
 			System.out.println(bodyInfo);
 			JSONObject json = JSONObject.fromObject(bodyInfo);
-			String username = json.getString("userName");
-			String password = json.getString("password");
-			password = MD5Utils.md5(password);
+			String token = json.getString("token");
+			System.out.println(token);
 			UserService us = (UserService) BeanFactory.getBean("UserService");
-			User u = us.login(username,password);
+			User u = us.checkToken(token);
 			//将信息写入map data写入map2中
 			Map<String, Object> map = new HashMap<String, Object>();
 			Map<String, Object> map2 = new HashMap<String, Object>();
 			if(u==null) {
 				map.put("code", 1);
-				map.put("msg", "登录失败，用户名或密码错误");
+				map.put("msg", "");
 				map.put("data", "");
 			}else {
-				u.setUser_token(JwtToken.createToken(u.getUser_id()));
-				us.addToken(u.getUser_token(),u.getUser_id());
 				map2.put("token", u.getUser_token());
 				map2.put("username", u.getUsername());
 				map2.put("sex", u.getUser_sex());
-				map2.put("avatar", u.getUser_avatar());
+				map2.put("avatar", "http://172.20.10.9:8080/setFlag/"+u.getUser_avatar());
 				map2.put("email", u.getUser_email());
 				map2.put("score", u.getUser_score());
 				map2.put("nickname", u.getUser_nickname());
 				map.put("code", 0);
-				map.put("msg", "登录成功");
+				map.put("msg", "");
 				map.put("data", map2);
-				System.out.println("用户登录时的token:"+u.getUser_token());
+				System.out.println("刷新时的token:"+u.getUser_token());
 			}
 			JSONObject res = JSONObject.fromObject(map);
-			System.out.println(res.toString());
+//			System.out.println(res.toString());
 			response.setCharacterEncoding("utf-8");
 			response.getWriter().print(res);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		
 	}
 

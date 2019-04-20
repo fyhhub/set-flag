@@ -48,4 +48,10 @@ public class UserServiceImpl implements UserService {
 		return dao.checkUsername(username);
 	}
 
+	@Override
+	public User checkToken(String token) throws Exception {
+		UserDao dao = (UserDao) BeanFactory.getBean("UserDao");
+		return dao.checkToken(token);
+	}
+
 }

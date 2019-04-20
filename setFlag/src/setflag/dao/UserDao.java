@@ -14,4 +14,6 @@ public interface UserDao {
 
 	User checkUsername(String username) throws Exception;
 
+	User checkToken(String token) throws Exception;
+
 }

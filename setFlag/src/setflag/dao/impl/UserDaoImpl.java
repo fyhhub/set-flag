@@ -63,4 +63,14 @@ public class UserDaoImpl implements UserDao {
 		return qr.query(sql, new BeanHandler<>(User.class), username);
 	}
 
+	/**
+	 * ¼ì²étoken
+	 */
+	@Override
+	public User checkToken(String token) throws Exception {
+		QueryRunner qr = new QueryRunner(DataSourceUtils.getDataSource());
+		String sql = "select * from user where user_token = ?";
+		return qr.query(sql, new BeanHandler<>(User.class), token);
+	}
+
 }

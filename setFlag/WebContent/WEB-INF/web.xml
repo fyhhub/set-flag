@@ -65,4 +65,14 @@
     <servlet-name>Regist_IsNameExistentServlet</servlet-name>
     <url-pattern>/register/validate_username</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Check_tokenServlet</display-name>
+    <servlet-name>Check_tokenServlet</servlet-name>
+    <servlet-class>web.servlet.Check_tokenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Check_tokenServlet</servlet-name>
+    <url-pattern>/check_token</url-pattern>
+  </servlet-mapping>
 </web-app>
