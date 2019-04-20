@@ -108,8 +108,8 @@ class Register extends React.Component {
             },
         }
         
-        const { validateUserNameStatus, help, userInfo } = this.props
-        if (userInfo.token) {
+        const { validateUserNameStatus, help, token } = this.props
+        if (token) {
             setTimeout(() => {
                 this.props.history.goBack()
             }, 1500)
@@ -207,7 +207,7 @@ const WrappedRegistrationForm = Form.create({ name: 'register' })(Register)
 const mapStateToProps = state => ({
     validateUserNameStatus: state.register.validateUserNameStatus,
     help:  state.register.help,
-    userInfo: state.global.userInfo
+    token: state.global.userInfo.token
 })
 const mapDispatchToProps = dispatch => ({
     handleSetValidateUserName(status, help) {

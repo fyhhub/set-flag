@@ -47,8 +47,7 @@ export const register = values => async dispatch => {
         const {code, data} = parseData(res)
         if (code === 0) {
             window.localStorage.setItem('token', data.token)
-            console.log(data.data);
-            dispatch(setUserInfo(data.data))
+            dispatch(setUserInfo(data))
         }
     } catch (e) {
         console.log(e)
