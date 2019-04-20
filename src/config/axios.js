@@ -1,9 +1,9 @@
 import axios from 'axios'
-import '../mock/login'
+// import '../mock/login'
 import {message, Modal} from 'antd'
 import store from '../redux/store'
 const Axios = axios.create({
-    baseURL: '/setFlag',
+    baseURL: 'http://localhost:8080/setFlag',
     timeout: 5000,
     responseType: 'json',
     headers: {
