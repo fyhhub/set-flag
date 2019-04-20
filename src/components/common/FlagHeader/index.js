@@ -25,14 +25,17 @@ class FlagHeader extends Component {
         this.props.history.push('/register')
         this.setState({ isLogin:true })
     }
-    render() {
+    componentDidMount() {
         const token = window.localStorage.getItem('token')
-        const { handleCheckToken, userInfo } = this.props
+        const { handleCheckToken } = this.props
         if (!this.state.isLogin) {
             if (token && token !== 'undefined') {
                 handleCheckToken(token)
             }
         } 
+    }
+    render() {
+        const { userInfo } = this.props
         return (
             <Row className='flag-header'>
                 <Col xs={1} sm={1} md={1} lg={1} xl={2} />
