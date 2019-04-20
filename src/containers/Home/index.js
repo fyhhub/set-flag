@@ -7,7 +7,6 @@ import './index.less'
 
 
 function Home(props) {
-    let [count, setCount] = useState(0)
     let [loading, setLoading] = useState(true)
     let [cover, setCover] = useState('')
     let img = new Image()
@@ -21,11 +20,11 @@ function Home(props) {
         }
     };
     useEffect(() => {
-
+        console.log(loading);
         return () => {
             console.log('unmount');
         }
-    }, [count])
+    }, [loading])
     return (
         <div className='home'>
             <section className='setflag' >
@@ -37,10 +36,27 @@ function Home(props) {
                             content='每天背40个单词每天背40个单词每天背40个单词'
                             cover={cover}
                         />
+                        <Card 
+                            title='英语四级'
+                            content='每天背40个单词每天背40个单词每天背40个单词'
+                            cover={cover}
+                        />
+                        <Card 
+                            title='英语四级'
+                            content='每天背40个单词每天背40个单词每天背40个单词'
+                            cover={cover}
+                        />
+                        <Card 
+                            title='英语四级'
+                            content='每天背40个单词每天背40个单词每天背40个单词'
+                            cover={cover}
+                        />
+                        <Card 
+                            title='英语四级'
+                            content='每天背40个单词每天背40个单词每天背40个单词'
+                            cover={cover}
+                        />
                     </Skeleton>
-                </div>
-                <div className='setflag-task'>
-
                 </div>
             </section>
         </div> 
