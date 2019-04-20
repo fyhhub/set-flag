@@ -14,7 +14,7 @@ const Axios = axios.create({
 Axios.interceptors.request.use(config => {
     let token = window.localStorage.getItem('token')
     let url = config.url
-    if (!token && url.indexOf('login') === -1) {
+    if (!token && url.indexOf('login') === -1 && url.indexOf('register') === -1) {
         Modal.confirm({
             title: '访问该资源需要登录，是否前往登录',
             onOk() {
