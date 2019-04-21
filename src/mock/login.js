@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 let Random = Mock.Random
 Mock.setup({
-    timeout: 1000
+    timeout: 500
 })
 let login =  {
     code: 0,
@@ -59,5 +59,46 @@ Mock.mock(/\/register\/validate_username/, 'get', options => {
         code: 0,
         msg: '',
         data: {}
+    }
+})
+
+
+
+Mock.mock(/\/getFlags/, 'get', options => {
+    return {
+        code: 0,
+        msg: '',
+        data: [
+            {
+                flag_id: 1,
+                flag_title: '英语四级',
+                flag_content: '每天背50个单词每天背50个单词每天背50个单词',
+                flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+            },
+            {
+                flag_id: 2,
+                flag_title: '英语四级',
+                flag_content: '每天背50个单词每天背50个单词每天背50个单词',
+                flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+            },
+            {
+                flag_id: 3,
+                flag_title: '英语四级',
+                flag_content: '每天背50个单词每天背50个单词每天背50个单词',
+                flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+            },
+            {
+                flag_id: 4,
+                flag_title: '英语四级',
+                flag_content: '每天背50个单词每天背50个单词每天背50个单词',
+                flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+            },
+            {
+                flag_id: 5,
+                flag_title: '英语四级',
+                flag_content: '每天背50个单词每天背50个单词每天背50个单词',
+                flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+            }
+        ]
     }
 })
