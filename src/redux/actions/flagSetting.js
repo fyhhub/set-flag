@@ -1,13 +1,16 @@
 import ajax from '../../config/ajax'
 import parseData from '../../utils/parseData'
-
 const SET_LOADED = 'flagSetting/SET_LOADED'
 const SET_SUCCESS = 'flagSetting/SET_SUCCESS'
 const SET_FLAGS = 'flagSetting/SET_FLAGS'
+const SET_TASKS = 'flagSetting/SET_TASKS'
 const initState = {
     isLoaded: false,
     isSuccess: false,
-    flags: []
+    flags: [],
+    visible: false,
+    confirmLoading: false,
+    tasks: []
 }
 export default (state = initState, action = {}) => {
     switch (action.type) {
@@ -25,6 +28,12 @@ export default (state = initState, action = {}) => {
             return {
                 ...state,
                 flags: [...action.flags]
+            }
+
+        case SET_TASKS:
+            return {
+                ...state,
+                tasks: [...action.tasks]
             }
         default:
             return state
@@ -60,4 +69,21 @@ export const getFlags = ({ offset, page }) => async dispatch => {
         console.log(e)  
     }
 }
+
+
+
+export const setTasks = tasks => ({
+    type: SET_TASKS,
+    tasks
+}) 
+
+export const getTasks = () => async dispatch => {
+    let res = await ajax('/getTasks', { token: window.localStorage.getItem('token') })
+    let { code, data } = parseData(res)
+    if (code === 0) {
+        dispatch(setTasks(data))
+    }
+}
+
+
 

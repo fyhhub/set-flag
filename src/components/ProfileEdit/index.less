@@ -1,0 +1,43 @@
+.profile-editor {
+    background-color: #fff;
+    margin-top: 20px;
+    box-sizing: border-box;
+    padding: 30px 60px;
+    margin-bottom: 20px;
+    h3 {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    .profile-editor-form {
+        display: flex;
+        align-items: center;
+        .profile-form-field {
+            width: 20%;
+            font-size: 18px;
+            color: #000;
+        }
+        .profile-form-val {
+            flex: 1;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            > span {
+                width: 300px;
+            }
+            .profile-form-avatar-upload {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                > span {
+                    margin-bottom: 10px;
+                    font-size: 13px;
+                }
+            }
+            .modify {
+                color: #1890ff;
+                cursor: pointer;
+                margin-left: 100px;
+            }
+        }
+    }
+}

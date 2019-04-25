@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import routeConfig from "./config/routeConfig"
 import { connect } from 'react-redux'
 import Auth from './utils/Auth'
+import { checkToken } from './redux/actions/global'
 const createRoutes = function(routes) {
     let children = []
     const renderRoute = function(route) {
@@ -38,12 +39,21 @@ const createRoutes = function(routes) {
     return <Switch>{children}</Switch>
 }
 class AppRouter extends React.Component {
+    componentDidMount() {
+        const token = window.localStorage.getItem('token')
+        const { handleCheckToken } = this.props
+        if (token && token !== 'undefined') {
+            handleCheckToken(token)
+        }
+    }
     render() {
         let routes = createRoutes(routeConfig)
         return <Router><Route path='/' render={(props => <Auth {...props}>{routes}</Auth>)}></Route></Router>
     }
 }
-const mapStateToProps = (state) => ({
-    ...state
+const mapDispatchToProps = (dispatch) => ({
+    handleCheckToken(token) {
+        dispatch(checkToken(token))
+    }
 })
-export default connect(mapStateToProps, null)(AppRouter)
+export default connect(null, mapDispatchToProps)(AppRouter)

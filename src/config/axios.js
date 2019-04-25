@@ -31,6 +31,7 @@ Axios.interceptors.request.use(config => {
     // } else {
     //     config.headers['Authorization'] = 'JWT ' + token
     // }
+    // config.headers['Authorization'] = 'JWT ' + token
     return config
 }, error => {
     message.error(error,2)

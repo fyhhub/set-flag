@@ -29,13 +29,13 @@ let checkToken = {
         score: 0
     }
 }
-let checkNameS = {
-    code: 0,
-    msg: '',
-    data: {
-        avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
-    }
-}
+// let checkNameS = {
+//     code: 0,
+//     msg: '',
+//     data: {
+//         avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+//     }
+// }
 
 Mock.mock('/setFlag/login/getAvator', 'post', options => {
     return checkToken
@@ -47,8 +47,68 @@ Mock.mock('/setFlag/login', 'post', options => {
 Mock.mock('/setFlag/check_token', 'post', options => {
     return checkToken   
 })
-        
+     
 
+Mock.mock('/setFlag/profile/checkPrepass', 'post', options => {
+    return {
+        code: 0,
+        msg: '密码不正确',
+        data: {}
+    }
+})
+
+Mock.mock('/setFlag/profile/modifyNickname', 'post', options => {
+    return {
+        code: 0,
+        msg: '修改成功',
+        data: {}
+    }
+})
+Mock.mock('/setFlag/profile/modifyPassword', 'post', options => {
+    return {
+        code: 0,
+        msg: '修改成功',
+        data: {}
+    }
+})
+
+
+Mock.mock('/setFlag/addFlag', 'post', options => {
+    console.log(options);
+    if (~options.body.indexOf('id')) {
+        return {
+            code: 0,
+            msg: '添加成功',
+            data: {
+                punch_id: Random.string(32, 150),
+                punch_title: '英语四级',
+                punch_content: '每天背50个单词每天背50个单词每天背50个单词',
+                is_true: false
+            }
+        }
+    } else {
+        return {
+            code: 0,
+            msg: '添加成功',
+            data: [
+                {
+                    punch_id: Random.string(32, 150),
+                    punch_title: '英语四级',
+                    punch_content: '每天背50个单词每天背50个单词每天背50个单词',
+                }
+            ]
+        }
+    }
+})
+
+
+Mock.mock('/setFlag/punchFlag', 'post', options => {
+    return {
+        code: 0,
+        msg: '',
+        data: {}
+    }
+})
 Mock.mock(/\/register\/validate_username/, 'get', options => {
     // return {
     //     code: 1,
@@ -63,6 +123,7 @@ Mock.mock(/\/register\/validate_username/, 'get', options => {
 })
 
 
+     
 
 Mock.mock(/\/getFlags/, 'get', options => {
     return {
@@ -70,34 +131,68 @@ Mock.mock(/\/getFlags/, 'get', options => {
         msg: '',
         data: [
             {
-                flag_id: 1,
+                flag_id: Random.string(32, 150),
                 flag_title: '英语四级',
                 flag_content: '每天背50个单词每天背50个单词每天背50个单词',
                 flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
             },
             {
-                flag_id: 2,
+                flag_id: Random.string(32, 150),
                 flag_title: '英语四级',
                 flag_content: '每天背50个单词每天背50个单词每天背50个单词',
                 flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
             },
             {
-                flag_id: 3,
+                flag_id: Random.string(32, 150),
                 flag_title: '英语四级',
                 flag_content: '每天背50个单词每天背50个单词每天背50个单词',
                 flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
             },
             {
-                flag_id: 4,
+                flag_id: Random.string(32, 150),
                 flag_title: '英语四级',
                 flag_content: '每天背50个单词每天背50个单词每天背50个单词',
                 flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
             },
             {
-                flag_id: 5,
+                flag_id: Random.string(32, 150),
                 flag_title: '英语四级',
                 flag_content: '每天背50个单词每天背50个单词每天背50个单词',
                 flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+            },
+            {
+                flag_id: Random.string(32, 150),
+                flag_title: '英语四级',
+                flag_content: '每天背50个单词每天背50个单词每天背50个单词',
+                flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+            }
+        ]
+    }
+})
+
+
+Mock.mock(/\/getTasks/, 'get', options => {
+    return {
+        code: 0,
+        msg: '',
+        data: [
+            {
+                punch_id: Random.string(32, 150),
+                punch_title: '英语四级',
+                punch_content: '每天背50个单词每天背50个单词每天背50个单词',
+                is_true: Random.boolean()
+            },
+            {
+                punch_id: Random.string(32, 150),
+                punch_title: '英语四级',
+                punch_content: '每天背50个单词每天背50个单词每天背50个单词',
+                is_true: false
+            },
+            {
+                punch_id: Random.string(32, 150),
+                punch_title: '英语四级',
+                punch_content: '每天背50个单词每天背50个单词每天背50个单词',
+                is_true: false
             }
         ]
     }

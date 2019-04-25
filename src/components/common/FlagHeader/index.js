@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Row, Col, Button, Avatar, Badge, Popover, Icon } from 'antd';
 import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { checkToken } from '../../../redux/actions/global'
 import './index.less'
 const handleClickExit = (e) => {
     window.localStorage.removeItem('token')
@@ -12,34 +11,22 @@ const content = (
     <div className='userInfo-popover'>
         <div className='personal-center'>
             <Icon type='user'/>
-            {/* <Link>个人中心</Link> */}
+            <Link to='/profile'>个人中心</Link>
         </div>
         <div className='exit' onClick={handleClickExit}><Icon type='logout'/><span>退出登录</span></div>
     </div>
 )
 class FlagHeader extends Component {
-    state = {
-        isLogin: false
-    }
     handleClick = (e) => {
         this.props.history.push('/register')
-        this.setState({ isLogin:true })
     }
-    componentDidMount() {
-        const token = window.localStorage.getItem('token')
-        const { handleCheckToken } = this.props
-        if (!this.state.isLogin) {
-            if (token && token !== 'undefined') {
-                handleCheckToken(token)
-            }
-        } 
-    }
+
     render() {
         const { userInfo } = this.props
         return (
             <Row className='flag-header'>
-                <Col xs={1} sm={1} md={1} lg={1} xl={2} />
-                <Col xs={22} sm={22} md={22} lg={22} xl={20}>
+                <Col xs={1} sm={1} md={1} lg={3} xl={3} />
+                <Col xs={22} sm={22} md={22} lg={18} xl={18}>
                     <header className='flag-header-main'>
                         <div className='flag-header-left'>
                             <NavLink to='/home' className='flag-logo' >立个Flag</NavLink>
@@ -67,7 +54,7 @@ class FlagHeader extends Component {
                         </div>
                     </header>
                 </Col>
-                <Col xs={1} sm={1} md={1} lg={1} xl={2}/>
+                <Col xs={1} sm={1} md={1} lg={3} xl={3}/>
             </Row>
         )
     }
@@ -75,9 +62,5 @@ class FlagHeader extends Component {
 const mapStateToProps = (state) => ({
     userInfo: state.global.userInfo
 })
-const mapDispatchToProps = (dispatch) => ({
-    handleCheckToken(token) {
-        dispatch(checkToken(token))
-    }
-})
-export default connect(mapStateToProps, mapDispatchToProps)(FlagHeader)
+
+export default connect(mapStateToProps, null)(FlagHeader)

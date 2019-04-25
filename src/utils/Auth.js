@@ -1,6 +1,5 @@
 import React from 'react'
 import store from '../redux/store'
-import { Redirect } from 'react-router-dom'
 export default class Auth extends React.Component {
     constructor(props) {
         super(props)
@@ -11,13 +10,6 @@ export default class Auth extends React.Component {
         })
     }
     render() {
-        const protects = []
-        if (protects.includes(this.props.location.pathname)) {
-            if (!store.getState().global.userInfo.token) {
-                return <Redirect to='/login'/>
-            }
-        } else {
-            return <div>{ this.props.children }</div>
-        }
+        return <div>{ this.props.children }</div>
     }
 }

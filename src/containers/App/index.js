@@ -14,11 +14,11 @@ class App extends React.Component {
                         <div className='app'>
                             <FlagHeader {...this.props}/>
                             <Row>
-                                <Col xs={0} sm={0} md={0} lg={1} xl={2} />
-                                <Col xs={24} sm={24} md={24} lg={22} xl={20}>
+                                <Col xs={0} sm={0} md={0} lg={3} xl={3} />
+                                <Col xs={24} sm={24} md={24} lg={18} xl={18}>
                                     { this.props.children }
                                 </Col>
-                                <Col xs={0} sm={0} md={0} lg={1} xl={2}/>
+                                <Col xs={0} sm={0} md={0} lg={3} xl={3}/>
                             </Row>
                         </div>
                     )
