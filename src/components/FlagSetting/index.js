@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Skeleton, Icon, Button, Modal, Input, Progress, Empty, message, Tag, Divider } from 'antd'
-import { getFlags, getTasks, setTasks } from '../../redux/actions/flagSetting'
+import { Skeleton, Icon, Button, Modal, Input, Progress, Empty, message, Tag, Divider, Drawer } from 'antd'
+import { getFlags, getTasks } from '../../redux/actions/flagSetting'
 import { connect } from 'react-redux'
 import parseData from '../../utils/parseData'
 import ajax from '../../config/ajax'
 import Card from '../Card/index'
 import BookMark from '../common/BookMark/index'
 import debounce from '../../utils/debounce'
+import Editor from '../common/Editor/index'
 import './index.less'
 function FlagSetting(props) {
     const [offset, setOffset] = useState(4)
@@ -16,6 +17,7 @@ function FlagSetting(props) {
     const [flagTitle, setFlagTitle] = useState('')
     const [flagContent, setFlagContent] = useState('')
     const [loadIndex, setLoadIndex] = useState(-1)
+    const [drawerVisible, setDrawerVisible] = useState(false)
     const { isLoaded, flags, handleGetFlags, token, history, handleGetTasks, tasks } = props
     useEffect(() => {
         if (!flags.length) {
@@ -70,6 +72,8 @@ function FlagSetting(props) {
             setConfirmLoading(false)
             setVisible(false)
             handleGetTasks()
+            setFlagTitle('')
+            setFlagContent('')
             message.success(msg)
         } else {
             setConfirmLoading(false)
@@ -102,6 +106,11 @@ function FlagSetting(props) {
             message.error(msg)
         }
     }
+
+    const handleOpenDailyPunch = () => {
+        setDrawerVisible(true)
+    }
+
     return (
         <section className='setflag' >
             <BookMark content='添加今日Flag' width='140px' />
@@ -144,9 +153,11 @@ function FlagSetting(props) {
                         to: '#87d068',
                     }}
                     percent={
-                        parseInt((tasks.filter(e => e.is_true).length / tasks.length)*100)
+                        100
                     }
-                    status="active"
+                    status={
+                        parseInt((tasks.filter(e => e.is_true).length / tasks.length)*100) === 100? 'success':'active'
+                    }
                 />
                 <div className='setflag-task'>
                     {
@@ -174,7 +185,9 @@ function FlagSetting(props) {
                         tasks.length === 0 ? <Empty description='暂无任务'/> : null
                     }
                 </div>
-
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <Button type="primary"  size='default' style={{backgroundColor: '#52c41a', borderColor: '#52c41a'}} onClick={handleOpenDailyPunch}>发表今日总结</Button>
+                </div>
             </div>
             <Modal
                 title="自定义Flag"
@@ -198,6 +211,17 @@ function FlagSetting(props) {
                 onChange={handleFlagContentOnChange}
             />
             </Modal>
+            <Drawer
+                title="发表今日总结"
+                placement='bottom'
+                closable={false}
+                onClose={() => { setDrawerVisible(false) }}
+                visible={drawerVisible}
+                height={400}
+                closable={true}
+            >
+                <Editor></Editor>
+            </Drawer>
         </section>
     )
 }
@@ -209,8 +233,8 @@ const mapStateToProps = state => ({
     token: state.global.userInfo.token,
 })
 const mapDispatchToProps = dispatch => ({
-    handleGetFlags(offet, page){
-        dispatch(getFlags({offet, page}))
+    handleGetFlags(offset, page){
+        dispatch(getFlags({offset, page}))
     },
     handleGetTasks() {
         dispatch(getTasks())

@@ -4,8 +4,8 @@ import {message, Modal} from 'antd'
 import store from '../redux/store'
 const Axios = axios.create({
     // baseURL: 'http://129.211.8.158:8080/setFlag',
-    baseURL: 'http://localhost:8080/setFlag',
-    // baseURL: '/setFlag',
+    // baseURL: 'http://localhost:8080/setFlag',
+    baseURL: '/setFlag',
     timeout: 5000,
     responseType: 'json',
     headers: {
