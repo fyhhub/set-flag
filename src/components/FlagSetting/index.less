@@ -51,16 +51,32 @@
             }
             .setflag-task {
                 box-sizing: border-box;
-                padding: 25px;
+                padding: 15px 30px;
                 max-height: 600px;
                 overflow: auto;
                 .setflag-task-title {
-                    margin-top: 10px;
-                    .setflag-task-btn {
-                        transition: all 0.3s linear;
-                        background-color: #52c41a;
-                        border-color: #52c41a;                        
+                    margin-top: 25px;
+                    width: 100%;
+                    transform: scale(0.95);
+                    .task-header {
+                        display: flex;
+                        align-items: center;
                     }
+                    .task-main {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 15px;
+                        span {
+                            line-height: 20px;
+                            font-size: 15px;
+                        }
+                        .setflag-task-btn {
+                            transition: all 0.3s linear;
+                            background-color: #52c41a;
+                            border-color: #52c41a;                        
+                        }
+                    }
+
                 }
                 &::-webkit-scrollbar {
                     width: 4px;

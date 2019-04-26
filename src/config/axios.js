@@ -1,10 +1,11 @@
 import axios from 'axios'
-// import '../mock/login'
+import '../mock/login'
 import {message, Modal} from 'antd'
 import store from '../redux/store'
 const Axios = axios.create({
     // baseURL: 'http://129.211.8.158:8080/setFlag',
     baseURL: 'http://localhost:8080/setFlag',
+    // baseURL: '/setFlag',
     timeout: 5000,
     responseType: 'json',
     headers: {
@@ -13,8 +14,8 @@ const Axios = axios.create({
 })
 
 Axios.interceptors.request.use(config => {
-    let token = window.localStorage.getItem('token')
-    let url = config.url
+    // let token = window.localStorage.getItem('token')
+    // let url = config.url
     // if (!token && url.indexOf('login') === -1 && url.indexOf('register') === -1) {
     //     Modal.confirm({
     //         title: '访问该资源需要登录，是否前往登录',
@@ -60,6 +61,7 @@ Axios.interceptors.response.use(config => {
                     title: '身份验证过期，是否前往登录',
                     onOk() {
                         store.dispatch({type: 'route/LINK_TO', path: '/login', isTo: true})
+                        store.dispatch({type: 'route/LINK_TO', path: '/login', isTo: false})
                     },
                     onCancel() {},
                     okText:'确认',

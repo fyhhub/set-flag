@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Skeleton, Icon, Button, Modal, Input,Card as ACard, Progress, Empty, message } from 'antd'
+import { Skeleton, Icon, Button, Modal, Input, Progress, Empty, message, Tag, Divider } from 'antd'
 import { getFlags, getTasks, setTasks } from '../../redux/actions/flagSetting'
 import { connect } from 'react-redux'
 import parseData from '../../utils/parseData'
@@ -37,7 +37,7 @@ function FlagSetting(props) {
     }, 400, true)
 
 
-    const handleSetCustomFlag = e => {
+    const handleAddCustomFlag = async e => {
         if (!token) {
             Modal.confirm({
                 title: '需要登录后添加，是否前往登录',
@@ -52,15 +52,29 @@ function FlagSetting(props) {
             })
             return
         } 
+
         setVisible(true)
     }
 
-    const handleOk = () => {
+    const handleOk = async () => {
+        let title = flagTitle
+        let content = flagContent
+        if (!title || !content) {
+            message.error('标题或内容不能为空')
+            return
+        }
         setConfirmLoading(true)
-        setTimeout(() => {
+        const res = await ajax('/addFlag', { title, content }, 'post')
+        const { code, msg } = parseData(res)
+        if (code === 0) {
             setConfirmLoading(false)
             setVisible(false)
-        }, 2000)
+            handleGetTasks()
+            message.success(msg)
+        } else {
+            setConfirmLoading(false)
+            message.error(msg)
+        }
     }
 
     const handleCancel = () => {
@@ -117,7 +131,7 @@ function FlagSetting(props) {
                         }
                     </Skeleton>
                 </div>
-                <Button icon="plus" className='setflag-add' size='large' onClick={handleSetCustomFlag}>
+                <Button icon="plus" className='setflag-add' size='large' onClick={handleAddCustomFlag}>
                     添加自定义Flag
                 </Button>
             </div>
@@ -129,23 +143,30 @@ function FlagSetting(props) {
                         from: '#108ee9',
                         to: '#87d068',
                     }}
-                    percent={50}
+                    percent={
+                        parseInt((tasks.filter(e => e.is_true).length / tasks.length)*100)
+                    }
                     status="active"
                 />
                 <div className='setflag-task'>
                     {
                         tasks.map((item, index) => {
                             return (
-                                <ACard title={item.punch_title} bordered={true} className='setflag-task-title' key={item.punch_id}>
-                                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                                        <span style={{marginRight: '10px'}}>{item.punch_content}</span>
+                                <div className='setflag-task-title' key={item.punch_id}>
+                                    <div className='task-header'>
+                                        <Tag color={`rgb(${Math.floor(Math.random()*254 + 182)}, ${Math.floor(Math.random()*205 + 67)}, ${Math.floor(Math.random()*173 + 101)})`} style={{fontSize:'16px', padding: '4px 8px', color: '#000'}}>{item.punch_title}</Tag> 
                                         {
-                                            item.is_true ? 
-                                            <Icon type="check-circle" style={{color: '#52c41a', fontSize: '25px'}}/> : 
-                                            <Button type="primary" icon="check" loading={index === loadIndex} onClick={handlePunchFlag.bind(this, index)}>打卡</Button>
+                                            item.is_true? <Icon type="check-circle" style={{color: '#52c41a', fontSize: '23px', marginLeft: '10px'}}/> : null
                                         }
                                     </div>
-                                </ACard>
+                                    <div className='task-main'>
+                                        <span style={{marginRight: '10px'}}>{item.punch_content}</span>
+                                        {
+                                            item.is_true? null : <Button type="primary" icon="check" loading={index === loadIndex} onClick={handlePunchFlag.bind(this, index)}>打卡</Button>
+                                        }
+                                    </div>
+                                    <Divider ></Divider>
+                                </div>
                             )
                         })
                     }

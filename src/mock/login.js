@@ -109,6 +109,19 @@ Mock.mock('/setFlag/punchFlag', 'post', options => {
         data: {}
     }
 })
+
+
+Mock.mock('/setFlag/addCustomFlag', 'post', options => {
+    return {
+        code: 0,
+        msg: '添加成功',
+        data: {
+            punch_id: Random.string(32, 150),
+            punch_title: '英语四级',
+            punch_content: '每天背50个单词每天背50个单词每天背50个单词',
+        }
+    }
+})
 Mock.mock(/\/register\/validate_username/, 'get', options => {
     // return {
     //     code: 1,
@@ -186,7 +199,7 @@ Mock.mock(/\/getTasks/, 'get', options => {
                 punch_id: Random.string(32, 150),
                 punch_title: '英语四级',
                 punch_content: '每天背50个单词每天背50个单词每天背50个单词',
-                is_true: false
+                is_true: Random.boolean()
             },
             {
                 punch_id: Random.string(32, 150),
