@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import E from 'wangeditor'
+import ajax from '../../../config/ajax'
+import { message } from 'antd'
 
 
 class Editor extends Component {
-
-
     componentDidMount() {
         this.initEditor()
     }
@@ -14,11 +14,23 @@ class Editor extends Component {
         const editor = new E(elem)
         this.editor = editor
         editor.customConfig.zIndex = 100
-        editor.customConfig.uploadImgServer = ''
         // 限制一次最多上传 1 张图片
         editor.customConfig.uploadImgMaxLength = 1
+        
         editor.customConfig.customUploadImg = function (files, insert) {
+            if (files[0]) {
+                const formData = new FormData()
+                formData.append('file', files[0])
+                ajax('/uploadImg', { file: formData }, 'post')
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(e => {
 
+                    })
+            } else {
+                message.info('请选择要上传的图片')
+            }
         }
         editor.customConfig.menus = [
         'head', // 标题
@@ -34,7 +46,7 @@ class Editor extends Component {
         'list', // 列表
         'justify', // 对齐方式
         'quote', // 引用
-        // 'emoticon', // 表情
+        'emoticon', // 表情
         'image', // 插入图片
         // 'table', // 表格
         // 'video', // 插入视频
@@ -42,31 +54,18 @@ class Editor extends Component {
         'undo', // 撤销
         'redo' // 重复
         ]
-        editor.customConfig.lang = {
-        '设置标题': 'Title',
-        '字号': 'Size',
-        '文字颜色': 'Color',
-        '设置列表': 'List',
-        '有序列表': '',
-        '无序列表': '',
-        '对齐方式': 'Align',
-        '靠左': '',
-        '居中': '',
-        '靠右': '',
-        '正文': 'p',
-        '链接文字': 'link text',
-        '链接': 'link',
-        '上传图片': 'Upload',
-        '网络图片': 'Web',
-        '图片link': 'image url',
-        '插入视频': 'Video',
-        '格式如': 'format',
-        '上传': 'Upload',
-        '创建': 'init'
-        }
+        editor.customConfig.emotions = [
+            {
+                // tab 的标题
+                title: 'emoji',
+                // type -> 'emoji' / 'image'
+                type: 'emoji',
+                // content -> 数组
+                content: ['😀', '😃', '😄', '😁', '😆', '🤣', '😉', '🙁', '😂', '😇', '😝', '🙄', '😰', '😤']
+            }
+        ]
         editor.create()
     }
-
 
     render() {
         return (

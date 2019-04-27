@@ -153,7 +153,7 @@ function FlagSetting(props) {
                         to: '#87d068',
                     }}
                     percent={
-                        100
+                        parseInt((tasks.filter(e => e.is_true).length / tasks.length)*100)
                     }
                     status={
                         parseInt((tasks.filter(e => e.is_true).length / tasks.length)*100) === 100? 'success':'active'
@@ -165,7 +165,11 @@ function FlagSetting(props) {
                             return (
                                 <div className='setflag-task-title' key={item.punch_id}>
                                     <div className='task-header'>
-                                        <Tag color={`rgb(${Math.floor(Math.random()*254 + 182)}, ${Math.floor(Math.random()*205 + 67)}, ${Math.floor(Math.random()*173 + 101)})`} style={{fontSize:'16px', padding: '4px 8px', color: '#000'}}>{item.punch_title}</Tag> 
+                                        <Tag 
+                                            color={`rgb(${Math.floor(Math.random()*254 + 182)}, ${Math.floor(Math.random()*205 + 67)}, ${Math.floor(Math.random()*173 + 101)})`} 
+                                            style={{fontSize:'16px', padding: '4px 8px', color: '#000'}}>
+                                            {item.punch_title}
+                                        </Tag> 
                                         {
                                             item.is_true? <Icon type="check-circle" style={{color: '#52c41a', fontSize: '23px', marginLeft: '10px'}}/> : null
                                         }
@@ -217,7 +221,7 @@ function FlagSetting(props) {
                 closable={false}
                 onClose={() => { setDrawerVisible(false) }}
                 visible={drawerVisible}
-                height={400}
+                height={500}
                 closable={true}
             >
                 <Editor></Editor>
