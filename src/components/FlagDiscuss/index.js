@@ -58,7 +58,7 @@ class FlagDiscuss extends Component {
                         dataSource={items}
                         renderItem={item => (
                             <List.Item
-                                key={item.title}
+                                key={item.id}
                                 actions={[
                                     <IconText type="like-o" text="156" />,
                                     <IconText type="message" text="2" />
@@ -71,12 +71,12 @@ class FlagDiscuss extends Component {
                                     />
                                 }
                             >
-                                    <List.Item.Meta
-                                        avatar={<Avatar src={item.avatar} />}
-                                        title={<Link to={`/disucss/${item.id}`}>{item.title}</Link>}
-                                        description={item.description}
-                                    />
-                                    {item.content}
+                                <List.Item.Meta
+                                    avatar={<Avatar src={item.avatar} />}
+                                    title={<Link to={`/disucss/${item.id}`}>{item.userName}</Link>}
+                                    description={item.title}
+                                />
+                                {item.content}
                             </List.Item>
                         )}
                     />

@@ -224,6 +224,9 @@ Mock.mock('/setFlag/uploadImg', 'post', options => {
     }
 })
 let i = 1
+
+
+
 Mock.mock(/\/getDailyPunch/, 'get', options => {
     let arr = []
     for (let i = 0;i < 5;i++) {
@@ -231,8 +234,8 @@ Mock.mock(/\/getDailyPunch/, 'get', options => {
             id: Random.string('lower', 10),
             userName: `ant design part ${i}`,
             avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-            description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-            content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+            title: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+            content: 'ources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
         })
     }
     return {
@@ -247,3 +250,13 @@ Mock.mock(/\/getDailyPunch/, 'get', options => {
 
 
 
+Mock.mock('/setFlag/dailyPunch', 'post', options => {
+    console.log(options);
+    return {
+        code: 0,
+        msg: '添加成功',
+        data: {
+            flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+        }
+    }
+})

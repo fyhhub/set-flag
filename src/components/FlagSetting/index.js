@@ -18,6 +18,8 @@ function FlagSetting(props) {
     const [flagContent, setFlagContent] = useState('')
     const [loadIndex, setLoadIndex] = useState(-1)
     const [drawerVisible, setDrawerVisible] = useState(false)
+    const [punchTitle, setPunchTitle] = useState('')
+    const [text, setText] = useState('')
     const { isLoaded, flags, handleGetFlags, token, history, handleGetTasks, tasks } = props
     useEffect(() => {
         if (!flags.length) {
@@ -111,6 +113,32 @@ function FlagSetting(props) {
         setDrawerVisible(true)
     }
 
+    const handleGetText = (text) => {
+        setText(text)
+    }
+
+
+    const handlePunchTitleChange = e => {
+        setPunchTitle(e.target.value)
+    }
+
+
+    const handleDailyPunch = async e => {
+        if (!punchTitle || text.replace(/\s*/g, '') === '<p></p>') {
+            message.warn('标题或内容不能为空')
+            return
+        }
+        const res = await ajax('/dailyPunch', {
+            title: punchTitle,
+            content: text
+        }, 'post')
+        const { code, msg } = parseData(res)
+        if (code === 0) {
+            message.success(msg)
+        } else {
+            message.error(msg)
+        }
+    }
     return (
         <section className='setflag' >
             <BookMark content='添加今日Flag' width='140px' />
@@ -224,12 +252,19 @@ function FlagSetting(props) {
                 height={500}
                 closable={true}
             >
-                <Editor>
-                    {
-                        (text) => {
-                            console.log(text);
-                        }
-                    }
+                <div className='daily-punch-wrapper'>
+                    <input type="text" className='daily-punch-title' placeholder="标题" value={punchTitle} onChange={handlePunchTitleChange}/>
+                    <div className='daily-punch-push'>
+                        <Button 
+                            type="dashed" 
+                            icon="edit" 
+                            style={{borderColor: ' rgb(24, 144, 255)', color: 'rgb(24, 144, 255)'}}
+                            onClick={handleDailyPunch}
+                        >
+                        发布</Button>
+                    </div>
+                </div>
+                <Editor getText={handleGetText}>
                 </Editor>
             </Drawer>
         </section>
