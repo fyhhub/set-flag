@@ -5,8 +5,8 @@ const FETCH_LIST_BEGIN = 'discuss/FETCH_LIST_BEGIN'
 const FETCH_LIST_SUCCESS = 'discuss/FETCH_LIST_SUCCESS'
 const FETCH_LIST_ERROR = 'discuss/FETCH_LIST_ERROR'
 const initState = {
-    page: 1,
     items: [],
+    pageList: {},
     total: 0,
     fetchListPending: false,
     fetchListError: null,
@@ -21,11 +21,15 @@ export default (state = initState, action = {}) => {
                 fetchListError: null
             }
         case FETCH_LIST_SUCCESS: {
+            const list = {}
+            list[action.data.page] = true
             return {
                 ...state,
                 items: [...state.items, ...action.data.items],
-                page: action.data.page,
-                total: action.data.total,
+                pageList: {
+                    ...state.pageList,
+                    ...list
+                },
                 fetchListPending: false,
                 fetchListError: null
             }
@@ -60,7 +64,7 @@ export const fetchDataList = (page) => async dispatch => {
     const res = await ajax('/getDailyPunch',{ page })
     const {code, msg, data} = parseData(res)
     if (code === 0) {
-        dispatch(fetchListSuccess(data))
+        dispatch(fetchListSuccess({...data, page}))
     } else {
         dispatch(fetchListError(msg))
     }

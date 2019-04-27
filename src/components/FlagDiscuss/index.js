@@ -13,17 +13,19 @@ const IconText = ({ type, text }) => (
   </span>
 );
 
+let pageIndex = 1
 class FlagDiscuss extends Component {
     componentDidMount() {
-        const { page } = this.props.discuss
-        this.fetchData(page)
+        const { pageList } = this.props.discuss
+        if (!pageList[pageIndex]) {
+            this.fetchData(pageIndex)
+        }
     }
-    fetchData = () => {
-        this.props.fetchList()
+    fetchData = (page) => {
+        this.props.fetchList(page)
     }
-    onLoadMore = (page) => {
-        
-        this.fetchData(page)
+    onLoadMore = () => {
+        this.fetchData(++pageIndex)
     }
     render() {
         const { items, fetchListPending } = this.props.discuss
@@ -87,8 +89,8 @@ const mapStateToProps = state => ({
     discuss: state.discuss
 })
 const mapDispatchToProps = dispatch => ({
-    fetchList() {
-        dispatch(fetchDataList())
+    fetchList(page) {
+        dispatch(fetchDataList(page))
     }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(FlagDiscuss)

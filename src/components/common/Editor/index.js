@@ -68,8 +68,12 @@ class Editor extends Component {
     }
 
     render() {
+        console.log(this.editor.txt);
+        
         return (
             <div ref='editorElem'>
+                {
+                }
             </div>
         )
     }

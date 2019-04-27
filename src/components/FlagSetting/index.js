@@ -224,7 +224,13 @@ function FlagSetting(props) {
                 height={500}
                 closable={true}
             >
-                <Editor></Editor>
+                <Editor>
+                    {
+                        (text) => {
+                            console.log(text);
+                        }
+                    }
+                </Editor>
             </Drawer>
         </section>
     )
