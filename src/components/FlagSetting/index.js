@@ -96,7 +96,7 @@ function FlagSetting(props) {
 
     const handlePunchFlag = async (index, e) => {
         setLoadIndex(index)
-        const res = await ajax('/punchFlag', { id: tasks[index].punch_id }, 'post')
+        const res = await ajax('/punchFlag', { punch_id: tasks[index].punch_id }, 'post')
         const {code, msg} = parseData(res)
         if (code === 0) {
             setLoadIndex(-1)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col,Row  } from 'antd'
+import { Col,Row,BackTop  } from 'antd'
 import FlagHeader from '../../components/common/FlagHeader/index'
 import './index.less'
 class App extends React.Component {
@@ -23,6 +23,7 @@ class App extends React.Component {
                         </div>
                     )
                 }
+                <BackTop />
             </div>
         )
     }

@@ -57,8 +57,7 @@ function ProfileEdit(props) {
         } catch(e) {
             console.log(e)
         }
-        // setConfirmLoading(true)
-        // setVisible(false)
+
     }
 
     const handleCancel = () => {

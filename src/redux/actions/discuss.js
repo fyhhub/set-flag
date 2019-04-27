@@ -5,15 +5,12 @@ const FETCH_LIST_BEGIN = 'discuss/FETCH_LIST_BEGIN'
 const FETCH_LIST_SUCCESS = 'discuss/FETCH_LIST_SUCCESS'
 const FETCH_LIST_ERROR = 'discuss/FETCH_LIST_ERROR'
 const initState = {
-    items: [],
     page: 1,
-    pageSize: 3,
+    items: [],
     total: 0,
-    byId: {},
     fetchListPending: false,
     fetchListError: null,
     listNeedReload: false,
-    pageList: {}
 }
 export default (state = initState, action = {}) => {
     switch (action.type) {
@@ -24,21 +21,10 @@ export default (state = initState, action = {}) => {
                 fetchListError: null
             }
         case FETCH_LIST_SUCCESS: {
-            const byId = []
-            const items = []
-            const pageList = {}
-            action.data.items.forEach(item => {
-                items.push(item.id)
-                byId[item.id] = item
-            })
-            pageList[action.data.page] = action.data.items
             return {
                 ...state,
-                byId,
-                items,
-                pageList,
+                items: [...state.items, ...action.data.items],
                 page: action.data.page,
-                pageSize: action.data.pageSize,
                 total: action.data.total,
                 fetchListPending: false,
                 fetchListError: null
@@ -70,12 +56,8 @@ const fetchListError = (data) => ({
 })
 
 export const fetchDataList = (page) => async dispatch => {
-    if (page === initState.page) {
-        return
-    }
-
     dispatch(fetchListPending())
-    const res = await ajax('/getDailyPunch', {page})
+    const res = await ajax('/getDailyPunch',{ page })
     const {code, msg, data} = parseData(res)
     if (code === 0) {
         dispatch(fetchListSuccess(data))

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import BookMark from '../common/BookMark/index'
-import { List, Avatar, Icon, Spin } from 'antd'
+import { List, Avatar, Icon, Button, Spin } from 'antd'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchDataList } from '../../redux/actions/discuss'
@@ -15,23 +15,31 @@ const IconText = ({ type, text }) => (
 
 class FlagDiscuss extends Component {
     componentDidMount() {
-        const { page, pageList } = this.props.discuss
-        if (!pageList[page]) {
-            this.fetchData(page)
-        }
+        const { page } = this.props.discuss
+        this.fetchData(page)
     }
-
-
-    fetchData = (page) => {
-        this.props.fetchList(page)
+    fetchData = () => {
+        this.props.fetchList()
     }
-    getDataSource = () => {
-        const { items, byId } = this.props.discuss
-        if (!items) return []
-        return items.map(id => byId[id])
+    onLoadMore = (page) => {
+        
+        this.fetchData(page)
     }
     render() {
-        const { pageSize, fetchListPending } = this.props.discuss
+        const { items, fetchListPending } = this.props.discuss
+        const loadMore =  (
+            <div style={{display: 'flex',justifyContent: 'center', alignItems: 'center',marginTop: '20px'}}>
+                {
+                    fetchListPending ? 
+                    (<Spin spinning={fetchListPending} size='large' />)
+                    :(
+                        <div style={{textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px'}}>
+                            <Button onClick={this.onLoadMore}>加载更多</Button>
+                        </div>
+                    )
+                }
+            </div>
+        ) 
         return (
             <div className="discuss">
                 <BookMark
@@ -40,23 +48,12 @@ class FlagDiscuss extends Component {
                     color="rgb(255, 143, 105)"
                     top='30px'
                 />
-                <Spin spinning={fetchListPending} size='large'>
-                    <List
+                <List
                         itemLayout="vertical"
                         size="large"
                         locale={'暂无数据'}
-                        pagination={{
-                            onChange: page => {
-                                this.fetchData(page)
-                            },
-                            pageSize: pageSize
-                        }}
-                        dataSource={this.getDataSource()}
-                        // footer={
-                        //     <div>
-                        //         <b>ant design</b> footer part
-                        //     </div>
-                        // }
+                        loadMore={loadMore}
+                        dataSource={items}
                         renderItem={item => (
                             <List.Item
                                 key={item.title}
@@ -72,16 +69,15 @@ class FlagDiscuss extends Component {
                                     />
                                 }
                             >
-                                <List.Item.Meta
-                                    avatar={<Avatar src={item.avatar} />}
-                                    title={<Link to={`${item.href}/${item.id}`}>{item.title}</Link>}
-                                    description={item.description}
-                                />
-                                {item.content}
+                                    <List.Item.Meta
+                                        avatar={<Avatar src={item.avatar} />}
+                                        title={<Link to={`/disucss/${item.id}`}>{item.title}</Link>}
+                                        description={item.description}
+                                    />
+                                    {item.content}
                             </List.Item>
                         )}
                     />
-                </Spin>
             </div>
         )
     }

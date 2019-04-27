@@ -226,10 +226,9 @@ Mock.mock('/setFlag/uploadImg', 'post', options => {
 let i = 1
 Mock.mock(/\/getDailyPunch/, 'get', options => {
     let arr = []
-    for (let i = 0;i < 20;i++) {
+    for (let i = 0;i < 5;i++) {
         arr.push({
             id: Random.string('lower', 10),
-            href: '/discuss',
             title: `ant design part ${i}`,
             avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
             description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
@@ -240,10 +239,8 @@ Mock.mock(/\/getDailyPunch/, 'get', options => {
         code: 0,
         msg: '',
         data: {
-            pageSize: 5,
             items: arr,
-            total: 20,
-            page: i++
+            total: 20
         }
     }
 })
