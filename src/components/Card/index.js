@@ -3,12 +3,12 @@ import { Icon, Modal, message  } from 'antd'
 import ajax from '../../config/ajax'
 import parseData from '../../utils/parseData'
 import { connect } from 'react-redux'
-import { setTasks } from '../../redux/actions/flagSetting'
+import { setTasks, getTasks } from '../../redux/actions/flagSetting'
 import './index.less'
 
 
 function Card(props) {
-    const { token, cover, title, content, history, id, tasks, handleSetTasks } = props
+    const { token, cover, title, content, history, id, tasks, handleGetTasks } = props
     useEffect(() => {
         return () => {
         }
@@ -20,11 +20,10 @@ function Card(props) {
                 title: '是否添加此Flag',
                 async onOk() {
                     const res = await ajax('/addFlag', { id }, 'post')
-                    const { code, msg, data } = parseData(res)
+                    const { code, msg } = parseData(res)
                     if (code === 0) {
-                        const newTasks = [...tasks, data]
                         message.success(msg)
-                        handleSetTasks(newTasks)
+                        handleGetTasks()
                     } else {
                         message.error(msg)
                     }
@@ -62,8 +61,8 @@ const mapStateToProps = state => ({
     tasks: state.flagSetting.tasks
 })
 const mapDispatchToProps = dispatch => ({
-    handleSetTasks(tasks) {
-        dispatch(setTasks(tasks))
+    handleGetTasks() {
+        dispatch(getTasks())
     }
 })
 

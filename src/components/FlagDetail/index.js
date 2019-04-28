@@ -95,7 +95,7 @@ class FlagDetail extends Component {
                 }
             }
             const reply = (comment_id, userName) => {
-                document.querySelector('.ant-back-top').click()
+                document.querySelector('.ant-back-top') && document.querySelector('.ant-back-top').click()
                 this.setState({ text: `@${userName} `, replyId: comment_id})
             }
             return (
