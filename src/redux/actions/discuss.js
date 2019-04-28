@@ -1,10 +1,10 @@
 import ajax from '../../config/ajax'
 import parseData from '../../utils/parseData'
-
 const FETCH_LIST_BEGIN = 'discuss/FETCH_LIST_BEGIN'
 const FETCH_LIST_SUCCESS = 'discuss/FETCH_LIST_SUCCESS'
 const FETCH_LIST_ERROR = 'discuss/FETCH_LIST_ERROR'
 const ADD_LIST_ITEM = 'discuss/ADD_LIST_ITEM'
+const SET_USERINFO = 'discuss/SET_USERINFO'
 const initState = {
     items: [],
     pageList: {},
@@ -13,7 +13,7 @@ const initState = {
     fetchListError: null,
     listNeedReload: false,
 
-
+    userInfo: {}
 
     
 }
@@ -48,11 +48,18 @@ export default (state = initState, action = {}) => {
         }
 
         case ADD_LIST_ITEM: {
-            console.log(action.data);
-            
             return {
                 ...state,
                 items: [...state.items, action.data]
+            }
+        }
+
+        case SET_USERINFO: {
+            return {
+                ...state,
+                userInfo: {
+                    ...action.data
+                }
             }
         }
         default:
@@ -75,6 +82,11 @@ const fetchListError = (data) => ({
 
 export const addListItem = data => ({
     type: ADD_LIST_ITEM,
+    data
+})
+
+export const setUserInfo = data => ({
+    type: SET_USERINFO,
     data
 })
 

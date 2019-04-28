@@ -251,7 +251,6 @@ Mock.mock(/\/getDailyPunch/, 'get', options => {
 
 
 Mock.mock('/setFlag/dailyPunch', 'post', options => {
-    console.log(options);
     return {
         code: 0,
         msg: '添加成功',
@@ -265,7 +264,8 @@ Mock.mock('/setFlag/dailyPunch', 'post', options => {
     }
 })
 
-Mock.mock(/\/getDailyPunchById/, 'get', options => {
+Mock.mock(/\/getDetailById/, 'get', options => {
+    console.log(options);
     return {
         code: 0,
         msg: '',
