@@ -4,6 +4,7 @@ import parseData from '../../utils/parseData'
 const FETCH_LIST_BEGIN = 'discuss/FETCH_LIST_BEGIN'
 const FETCH_LIST_SUCCESS = 'discuss/FETCH_LIST_SUCCESS'
 const FETCH_LIST_ERROR = 'discuss/FETCH_LIST_ERROR'
+const ADD_LIST_ITEM = 'discuss/ADD_LIST_ITEM'
 const initState = {
     items: [],
     pageList: {},
@@ -11,6 +12,10 @@ const initState = {
     fetchListPending: false,
     fetchListError: null,
     listNeedReload: false,
+
+
+
+    
 }
 export default (state = initState, action = {}) => {
     switch (action.type) {
@@ -41,6 +46,15 @@ export default (state = initState, action = {}) => {
                 fetchListError: action.data
             }
         }
+
+        case ADD_LIST_ITEM: {
+            console.log(action.data);
+            
+            return {
+                ...state,
+                items: [...state.items, action.data]
+            }
+        }
         default:
             return state
     }
@@ -58,6 +72,13 @@ const fetchListError = (data) => ({
     type: FETCH_LIST_ERROR,
     data
 })
+
+export const addListItem = data => ({
+    type: ADD_LIST_ITEM,
+    data
+})
+
+
 
 export const fetchDataList = (page) => async dispatch => {
     dispatch(fetchListPending())

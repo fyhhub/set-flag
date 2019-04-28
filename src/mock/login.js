@@ -256,7 +256,28 @@ Mock.mock('/setFlag/dailyPunch', 'post', options => {
         code: 0,
         msg: '添加成功',
         data: {
-            flag_image: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=cda12b505afa1beb06e49d89014cbd65&auto=format&fit=crop&w=634&q=80',
+            id: Random.string('lower', 10),
+            userName: `ant design part xxx`,
+            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            title: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+            content: 'ources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
         }
     }
 })
+
+Mock.mock(/\/getDailyPunchById/, 'get', options => {
+    return {
+        code: 0,
+        msg: '',
+        data: {
+            id: Random.string('lower', 10),
+            userName: `ant design part xxx`,
+            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            title: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
+            content: 'ources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+            agree: 100,
+            date: '2019-4-27'
+        }
+    }
+})
+

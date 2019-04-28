@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Skeleton, Icon, Button, Modal, Input, Progress, Empty, message, Tag, Divider, Drawer } from 'antd'
 import { getFlags, getTasks } from '../../redux/actions/flagSetting'
 import { connect } from 'react-redux'
+import { addListItem } from '../../redux/actions/discuss'
 import parseData from '../../utils/parseData'
 import ajax from '../../config/ajax'
 import Card from '../Card/index'
@@ -132,9 +133,14 @@ function FlagSetting(props) {
             title: punchTitle,
             content: text
         }, 'post')
-        const { code, msg } = parseData(res)
+        const { code, msg, data } = parseData(res)
+        const { handleAddListItem } = props
         if (code === 0) {
             message.success(msg)
+            setPunchTitle('')
+            setDrawerVisible(false)
+            setText('')
+            handleAddListItem(data)
         } else {
             message.error(msg)
         }
@@ -284,5 +290,8 @@ const mapDispatchToProps = dispatch => ({
     handleGetTasks() {
         dispatch(getTasks())
     },
+    handleAddListItem(data) {
+        dispatch(addListItem(data))
+    }
 })
 export default connect(mapStateToProps, mapDispatchToProps)(FlagSetting)

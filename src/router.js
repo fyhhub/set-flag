@@ -44,7 +44,7 @@ class AppRouter extends React.Component {
         const { handleCheckToken } = this.props
         if (token && token !== 'undefined') {
             handleCheckToken(token)
-        }
+        }   
     }
     render() {
         let routes = createRoutes(routeConfig)

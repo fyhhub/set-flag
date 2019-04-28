@@ -50,7 +50,6 @@ class FlagHeader extends Component {
                                     </div> 
                                 )
                             }
-                            
                         </div>
                     </header>
                 </Col>

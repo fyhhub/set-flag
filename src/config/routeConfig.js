@@ -5,6 +5,7 @@ const Login = asyncComponent(() => import('../containers/Login/index.js'))
 const Register = asyncComponent(() => import('../containers/Register/index.js'))
 const Home = asyncComponent(() => import('../containers/Home/index.js'))
 const Profile = asyncComponent(() => import('../containers/Profile/index.js'))
+const FlagDetail = asyncComponent(() => import('../components/FlagDetail/index'))
 export default [
     {
         path: '/',
@@ -34,6 +35,11 @@ export default [
                 path: '/profile',
                 exact: true,
                 component: Profile
+            },
+            {
+                path: '/detail/:id',
+                exact: true,
+                component: FlagDetail
             }
         ]
     },
