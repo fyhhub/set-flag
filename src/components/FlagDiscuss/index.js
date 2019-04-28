@@ -67,10 +67,11 @@ class FlagDiscuss extends Component {
                                     <img
                                         width={272}
                                         alt="logo"
-                                        src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                                        src={item.image || 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'}
                                     />
                                 }
                             >
+                            
                                 <List.Item.Meta
                                     avatar={<Avatar src={item.avatar} />}
                                     title={<Link to={`/detail/${item.id}`}>{item.nickname}</Link>}
