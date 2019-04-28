@@ -18,6 +18,7 @@ class FlagDetail extends Component {
     componentDidMount() {
         this.getDailyPunchById()
         this.getComments()
+        window.scrollTo(0,0)
     }
     async getDailyPunchById() {
         const id = this.props.match.params.id
@@ -127,7 +128,7 @@ class FlagDetail extends Component {
                 </Comment>
             );
         }
-        const { avatar, content, date, title, userName } = this.props.userInfo
+        const { avatar, content, date, title, nickname } = this.props.userInfo
         const comments = this.props.comments.filter(e => !e.parent_id)
         const comments1 = this.props.comments.filter(e => e.parent_id)
         
@@ -136,7 +137,7 @@ class FlagDetail extends Component {
                 <div className='detail-info'>
                     <Avatar size={50} icon="user" src={avatar}/>
                     <div className='detail-info-name'>
-                        <h3>{userName}</h3>
+                        <h3>{nickname}</h3>
                         <p>{date}  发布</p>
                     </div>
                 </div>
@@ -182,7 +183,21 @@ class FlagDetail extends Component {
                                     {
                                         comments1.map(e => {
                                             if (e.parent_id === item.comment_id) {
-                                                return <ExampleComment {...e} {...this.state} key={e.comment_id}/>
+                                                return (
+                                                    <ExampleComment {...e} {...this.state} key={e.comment_id}>
+                                                        {
+                                                            this.props.comments.map(i => {
+                                                                if (i.parent_id === e.comment_id) {
+                                                                    return (
+                                                                        <ExampleComment {...this.state} {...i} key={i.comment_id}/>
+                                                                    )
+                                                                } else {
+                                                                    return null
+                                                                }
+                                                            })
+                                                        }
+                                                    </ExampleComment>
+                                                )
                                             } else {
                                                 return null
                                             }

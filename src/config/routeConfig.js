@@ -6,6 +6,8 @@ const Register = asyncComponent(() => import('../containers/Register/index.js'))
 const Home = asyncComponent(() => import('../containers/Home/index.js'))
 const Profile = asyncComponent(() => import('../containers/Profile/index.js'))
 const FlagDetail = asyncComponent(() => import('../components/FlagDetail/index'))
+const FlagRecord = asyncComponent(() => import('../components/FlagRecord/index'))
+const FlagReCommend = asyncComponent(() => import('../components/FlagReCommend/index'))
 export default [
     {
         path: '/',
@@ -40,6 +42,16 @@ export default [
                 path: '/detail/:id',
                 exact: true,
                 component: FlagDetail
+            },
+            {
+                path: '/record',
+                exact: true,
+                component: FlagRecord
+            },
+            {
+                path: '/recommend',
+                exact: true,
+                component: FlagReCommend
             }
         ]
     },

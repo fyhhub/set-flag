@@ -13,7 +13,6 @@ const initState = {
     fetchListPending: false,
     fetchListError: null,
     listNeedReload: false,
-
     userInfo: {},
     comments: []
 }

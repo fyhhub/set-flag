@@ -83,7 +83,7 @@ Mock.mock('/setFlag/addFlag', 'post', options => {
                 punch_id: Random.string(32, 150),
                 punch_title: '英语四级',
                 punch_content: '每天背50个单词每天背50个单词每天背50个单词',
-                is_true: false
+                is_true: false,
             }
         }
     } else {
@@ -185,6 +185,7 @@ Mock.mock(/\/getFlags/, 'get', options => {
 
 
 Mock.mock(/\/getTasks/, 'get', options => {
+    console.log(options);
     return {
         code: 0,
         msg: '',
@@ -193,19 +194,22 @@ Mock.mock(/\/getTasks/, 'get', options => {
                 punch_id: Random.string(32, 150),
                 punch_title: '英语四级',
                 punch_content: '每天背50个单词每天背50个单词每天背50个单词',
-                is_true: Random.boolean()
+                is_true: Random.boolean(),
+                date:'2019-4-28'
             },
             {
                 punch_id: Random.string(32, 150),
                 punch_title: '英语四级',
-                punch_content: '每天背50个单词每天背50个单词每天背50个单词',
-                is_true: Random.boolean()
+                punch_content: '每天背50个单词每天背50个单词',
+                is_true: Random.boolean(),
+                date:'2019-4-27'
             },
             {
                 punch_id: Random.string(32, 150),
                 punch_title: '英语四级',
-                punch_content: '每天背50个单词每天背50个单词每天背50个单词',
-                is_true: false
+                punch_content: '每天背50个单词',
+                is_true: false,
+                date:'2019-4-28'
             }
         ]
     }
@@ -214,7 +218,6 @@ Mock.mock(/\/getTasks/, 'get', options => {
 
 
 Mock.mock('/setFlag/uploadImg', 'post', options => {
-    console.log(options);
     return {
         code: 0,
         msg: '添加成功',
@@ -232,10 +235,13 @@ Mock.mock(/\/getDailyPunch/, 'get', options => {
     for (let i = 0;i < 5;i++) {
         arr.push({
             id: Random.string('lower', 10),
-            userName: `ant design part ${i}`,
+            nickname: `ant design part ${i}`,
             avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
             title: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
             content: 'ources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+            agree: 100,
+            comment_num:111,
+            date: '2019-4-27'
         })
     }
     return {
@@ -260,6 +266,9 @@ Mock.mock('/setFlag/dailyPunch', 'post', options => {
             avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
             title: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
             content: 'ources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+            agree: 100,
+            comment_num:111,
+            date: '2019-4-27'
         }
     }
 })
@@ -270,11 +279,12 @@ Mock.mock(/\/getDetailById/, 'get', options => {
         msg: '',
         data: {
             id: Random.string('lower', 10),
-            userName: `ant design part xxx`,
+            nickname: `ant design part xxx`,
             avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
             title: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
             content: 'ources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
             agree: 100,
+            comment_num:111,
             date: '2019-4-27'
         }
     }

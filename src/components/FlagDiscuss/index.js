@@ -61,7 +61,7 @@ class FlagDiscuss extends Component {
                                 key={item.id}
                                 actions={[
                                     <IconText type="like-o" text={item.agree} />,
-                                    <IconText type="message" text="2" />
+                                    <IconText type="message" text={item.comment_num} />
                                 ]}
                                 extra={
                                     <img
@@ -73,7 +73,7 @@ class FlagDiscuss extends Component {
                             >
                                 <List.Item.Meta
                                     avatar={<Avatar src={item.avatar} />}
-                                    title={<Link to={`/detail/${item.id}`}>{item.userName}</Link>}
+                                    title={<Link to={`/detail/${item.id}`}>{item.nickname}</Link>}
                                     description={item.title}
                                 />
                                 {item.content}

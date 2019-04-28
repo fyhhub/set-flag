@@ -2,25 +2,24 @@ import React, { useState } from 'react'
 import { Avatar, Button, Timeline, Icon } from 'antd'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
-import ProfileEdit from '../../components/ProfileEdit/index'
+import ProfileEdit from '../../components/FlagProfileEdit/index'
 import './index.less'
 
 function Profile(props) {
-    const { token } = props
+    const { userInfo } = props
     const [showEdit, setShowEdit] = useState(true)
     const handleProfileEdit = e => {
         setShowEdit(!showEdit)
     }
-
-    if (!token) {
+    if (!userInfo.token && !window.localStorage.getItem('token')) {
         return <Redirect to='/login'/>
     }
     return (
         <div className='profile'> 
             <div className='profile-header'>
                 <div className='profile-avatar'>
-                    <Avatar shape="square" size={100} icon="user" /> 
-                    <h1>前端爱好者</h1>
+                    <Avatar shape="square" size={100} icon="user" src={userInfo.avatar}/> 
+                    <h1>{userInfo.nickname}</h1>
                 </div>
                 <div className='profile-edit'>
                     <Button type="dashed" size='large' style={{ color: '#1890ff', borderColor: '#1890ff' }} onClick={handleProfileEdit}>编辑个人资料</Button>
@@ -44,7 +43,7 @@ function Profile(props) {
 }
 const mapStateToProps = state => {
     return {
-        token: state.global.userInfo.token
+        userInfo: state.global.userInfo
     }
 }
 

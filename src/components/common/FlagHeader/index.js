@@ -32,7 +32,8 @@ class FlagHeader extends Component {
                             <NavLink to='/home' className='flag-logo' >立个Flag</NavLink>
                             <nav>
                                 <NavLink to='/home' className='nav-item' activeClassName='nav-active'>首页</NavLink>
-                                <NavLink to='/home' className='nav-item' activeClassName='nav-active'>打卡记录</NavLink>
+                                <NavLink to='/record' className='nav-item' activeClassName='nav-active'>打卡记录</NavLink>
+                                <NavLink to='/recommend' className='nav-item' activeClassName='nav-active'>文章推荐</NavLink>
                             </nav>
                         </div>
                         <div className='flag-header-right'>
