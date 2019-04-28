@@ -5,6 +5,7 @@ const FETCH_LIST_SUCCESS = 'discuss/FETCH_LIST_SUCCESS'
 const FETCH_LIST_ERROR = 'discuss/FETCH_LIST_ERROR'
 const ADD_LIST_ITEM = 'discuss/ADD_LIST_ITEM'
 const SET_USERINFO = 'discuss/SET_USERINFO'
+const SET_COMMENTS = 'discuss/SET_COMMENTS'
 const initState = {
     items: [],
     pageList: {},
@@ -13,9 +14,8 @@ const initState = {
     fetchListError: null,
     listNeedReload: false,
 
-    userInfo: {}
-
-    
+    userInfo: {},
+    comments: []
 }
 export default (state = initState, action = {}) => {
     switch (action.type) {
@@ -50,7 +50,7 @@ export default (state = initState, action = {}) => {
         case ADD_LIST_ITEM: {
             return {
                 ...state,
-                items: [...state.items, action.data]
+                items: [action.data,...state.items]
             }
         }
 
@@ -60,6 +60,12 @@ export default (state = initState, action = {}) => {
                 userInfo: {
                     ...action.data
                 }
+            }
+        }
+        case SET_COMMENTS: {
+            return {
+                ...state,
+                comments: [...action.data]
             }
         }
         default:
@@ -87,6 +93,11 @@ export const addListItem = data => ({
 
 export const setUserInfo = data => ({
     type: SET_USERINFO,
+    data
+})
+
+export const setComments = data => ({
+    type: SET_COMMENTS,
     data
 })
 

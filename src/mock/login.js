@@ -265,7 +265,6 @@ Mock.mock('/setFlag/dailyPunch', 'post', options => {
 })
 
 Mock.mock(/\/getDetailById/, 'get', options => {
-    console.log(options);
     return {
         code: 0,
         msg: '',
@@ -281,3 +280,85 @@ Mock.mock(/\/getDetailById/, 'get', options => {
     }
 })
 
+
+Mock.mock(/\/getComments/, 'get', options => {
+    return {
+        code: 0,
+        msg: '',
+        data: [
+            {
+                comment_id: '1',
+                parent_id: '',
+                userName: 'fanyihiu',
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                comment_content: '你好啊',
+                comment_create_time: '2019-7-8',
+                comment_agree: 100
+            },
+            {
+                comment_id: '2',
+                parent_id: '',
+                userName: 'fanyihiu',
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                comment_content: '你好啊',
+                comment_create_time: '2019-7-8',
+                comment_agree: 100
+            },
+            {
+                comment_id: '3',
+                parent_id: '',
+                userName: 'fanyihiu',
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                comment_content: '你好啊',
+                comment_create_time: '2019-7-8',
+                comment_agree: 100
+            },
+            {
+                comment_id: '4',
+                parent_id: '2',
+                userName: 'fanyihiu',
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                comment_content: '你好啊',
+                comment_create_time: '2019-7-8',
+                comment_agree: 100
+            },
+            {
+                comment_id: '5',
+                parent_id: '2',
+                userName: 'fanyihiu',
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                comment_content: '你好啊',
+                comment_create_time: '2019-7-8',
+                comment_agree: 100
+            },
+            {
+                comment_id: '6',
+                parent_id: '',
+                userName: 'fanyihiu',
+                avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+                comment_content: '你好啊',
+                comment_create_time: '2019-7-8',
+                comment_agree: 100
+            }
+        ]
+    }
+})
+
+
+
+
+Mock.mock('/setFlag/comment', 'post', options => {
+    return {
+        code: 0,
+        msg: '评论成功',
+        data: {
+            comment_id: '8',
+            parent_id: '2',
+            userName: '1231213123',
+            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            comment_content: '@123 你好啊！！！',
+            comment_create_time: '2019-7-8',
+            comment_agree: 50
+        }
+    }
+})
