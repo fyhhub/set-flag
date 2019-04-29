@@ -45,7 +45,7 @@ function ProfileEdit(props) {
         try {
             setConfirmLoading(true)
             let res = await ajax('/profile/modifyPassword', { newPass }, 'post')
-            const { code, msg, data } = parseData(res)
+            const { code, msg } = parseData(res)
             if (code === 1) {
                 message.error(msg)
                 setConfirmLoading(false)
@@ -76,7 +76,7 @@ function ProfileEdit(props) {
         try {
             setIsValid(true)
             const res = await ajax('/profile/checkPrepass', { prePass: value }, 'post')
-            const { code, msg, data } = parseData(res)
+            const { code, msg } = parseData(res)
             if (code === 1) {
                 setIsValid(false)
                 message.error(msg);

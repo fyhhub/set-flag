@@ -11,7 +11,7 @@ import debounce from '../../utils/debounce'
 import Editor from '../common/Editor/index'
 import './index.less'
 function FlagSetting(props) {
-    const [offset, setOffset] = useState(4)
+    const [offset] = useState(4)
     const [page, setPage] = useState(1)
     const [visible, setVisible] = useState(false)
     const [confirmLoading, setConfirmLoading] = useState(false)
@@ -252,11 +252,10 @@ function FlagSetting(props) {
             <Drawer
                 title="发表今日总结"
                 placement='bottom'
-                closable={false}
+                closable={true}
                 onClose={() => { setDrawerVisible(false) }}
                 visible={drawerVisible}
                 height={500}
-                closable={true}
             >
                 <div className='daily-punch-wrapper'>
                     <input type="text" className='daily-punch-title' placeholder="标题" value={punchTitle} onChange={handlePunchTitleChange}/>

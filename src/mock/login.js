@@ -226,8 +226,6 @@ Mock.mock('/setFlag/uploadImg', 'post', options => {
         }
     }
 })
-let i = 1
-
 
 
 Mock.mock(/\/getDailyPunch/, 'get', options => {
