@@ -255,7 +255,26 @@ Mock.mock(/\/getDailyPunch/, 'get', options => {
 })
 
 
-
+Mock.mock(/\/getArticles/, 'get', options => {
+    let arr = []
+    for (let i = 0;i < 5;i++) {
+        arr.push({
+            id: Random.string('lower', 10),
+            nickname: `ant design part ${i}`,
+            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            title: '2018 年终总结：成就不算少，进步不算多',
+            content: '最近一段时间没有更新原创文章了，主要是因为最近整个在忙硕士毕业的各种事情，毕业答辩完了以后休假了一小段时间，整个十二月就这么过去了。 转眼已经 2019 年了，其实去年我并没有写年终总结，现在到头来还是蛮后悔的，说实话总结其实还是蛮有必要的，现在就趁着这个时间来对自己的 2018',
+            agree: 100,
+            comment_num:111,
+            date: '2019-4-27'
+        })
+    }
+    return {
+        code: 0,
+        msg: '',
+        data: arr
+    }
+})
 Mock.mock('/setFlag/dailyPunch', 'post', options => {
     return {
         code: 0,
