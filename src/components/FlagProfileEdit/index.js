@@ -111,7 +111,7 @@ function ProfileEdit(props) {
                     <div className='profile-form-avatar-upload'>
                         <span>支持 jpg、png 格式大小 5M 以内的图片</span>
                         <Upload
-                            action='/setFlag/uploadAvatar'
+                            action='http://localhost:8080/setFlag/uploadAvatar'
                             accept='image/*'
                             name='image'
                             beforeUpload={handleBeforeUpload}
