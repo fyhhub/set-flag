@@ -11,6 +11,7 @@ function Profile(props) {
     const handleProfileEdit = e => {
         setShowEdit(!showEdit)
     }
+
     if (!userInfo.token && !window.localStorage.getItem('token')) {
         return <Redirect to='/login'/>
     }
@@ -26,7 +27,7 @@ function Profile(props) {
                 </div>
             </div>
             {
-                showEdit ? <ProfileEdit/> : null
+                showEdit ? <ProfileEdit /> : null
             }
             <div className='profile-record'>
                 <Timeline mode="alternate">
@@ -46,5 +47,6 @@ const mapStateToProps = state => {
         userInfo: state.global.userInfo
     }
 }
+
 
 export default connect(mapStateToProps, null)(Profile)

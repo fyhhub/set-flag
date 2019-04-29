@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Divider, Upload, Button, Icon, Input, Modal, message } from 'antd'
 import { connect } from 'react-redux'
+import { checkToken } from '../../redux/actions/global'
 import ajax from '../../config/ajax'
 import parseData from '../../utils/parseData'
 import './index.less'
 function ProfileEdit(props) {
-    let { userInfo } =  props
+    let { userInfo, handleCheckToken } =  props
     const [visible, setVisible] = useState(false)
     const [confirmLoading, setConfirmLoading] = useState(false)
     const [isValid, setIsValid] = useState(true)
@@ -28,7 +29,6 @@ function ProfileEdit(props) {
             console.log(e)
         }
     }
-
     const handleModifyNickname = e => {
         setNickname(e.target.value)
     }
@@ -85,6 +85,22 @@ function ProfileEdit(props) {
             console.log(e)
         }
     }
+    const handleBeforeUpload = (file, fileList) => {
+        return true
+    }
+
+    const handleUploadChange = ({file}) => {
+        const { response } = file
+        if (response) {
+            const { code, msg } = response
+            if (code === 0) {
+                message.success(msg)
+                handleCheckToken(window.localStorage.getItem('token'))
+            } else {
+                message.error(msg)
+            }
+        }
+    }
     return (
         <div className='profile-editor'>
             <h3>个人资料</h3>
@@ -94,7 +110,12 @@ function ProfileEdit(props) {
                 <div className='profile-form-val'>
                     <div className='profile-form-avatar-upload'>
                         <span>支持 jpg、png 格式大小 5M 以内的图片</span>
-                        <Upload>
+                        <Upload
+                            action='/setFlag/uploadAvatar'
+                            accept='image/*'
+                            beforeUpload={handleBeforeUpload}
+                            onChange={handleUploadChange}
+                        >
                             <Button type='primary'>
                                 <Icon type="upload" /> 点击上传
                             </Button>
@@ -156,6 +177,9 @@ const mapStateToProps = state => ({
     userInfo: state.global.userInfo
 })
 const mapDispatchToProps = dispatch => ({
-
+    handleCheckToken(token) {
+        dispatch(checkToken(token))
+    }
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit)

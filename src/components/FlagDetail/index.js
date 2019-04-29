@@ -29,8 +29,6 @@ class FlagDetail extends Component {
             handleSetUserInfo(data)
         }
     }
-
-
     async getComments() {
         const id = this.props.match.params.id
         const res = await ajax('/getComments', { id })
@@ -41,17 +39,9 @@ class FlagDetail extends Component {
             handleSetComments(data)
         }
     }
-
-
     getText = (text) => {
         this.setState({ text })
     }
-
-
-
-
-
-
     handleChange = e => {
         this.setState({
             text: e.target.value

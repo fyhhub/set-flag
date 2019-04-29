@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Timeline, Icon } from 'antd'
+import { Timeline, Icon, Skeleton } from 'antd'
 import { connect } from 'react-redux'
 import { setArticles } from '../../redux/actions/discuss'
 import BookMark from '../common/BookMark/index'
@@ -24,6 +24,8 @@ class FlagReCommend extends Component {
     }
     render() {
         const { articles } = this.props
+        console.log(articles);
+        
         return (
             <div className='recommend'>
                 <BookMark
@@ -32,7 +34,11 @@ class FlagReCommend extends Component {
                     color="rgb(255, 143, 105)"
                     top='30px'
                 />
+                {
+                     articles.length === 0? <Skeleton active /> : null
+                }
                 <Timeline>
+
                     {
                         articles && articles.map(item => {
                             return (
@@ -41,6 +47,7 @@ class FlagReCommend extends Component {
                                     className='timeline'
                                     key={item.id}
                                 >
+
                                     <div className='times'>{item.date}</div>
                                     <div className='recommend-item'>
                                         <div className='recommend-item-img'  onClick={this.handleClickItem.bind(this,item.id)}>
