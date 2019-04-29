@@ -116,6 +116,7 @@ function ProfileEdit(props) {
                             name='image'
                             beforeUpload={handleBeforeUpload}
                             onChange={handleUploadChange}
+                            data={{token: window.localStorage.getItem('token')}}
                         >
                             <Button type='primary'>
                                 <Icon type="upload" /> 点击上传

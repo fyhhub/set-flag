@@ -78,8 +78,7 @@ export const setTasks = tasks => ({
 }) 
 
 export const getTasks = () => async dispatch => {
-    let res = await ajax('/getTasks', { token: window.localStorage.getItem('token') })
-
+    let res = await ajax('/getTasks', { token: window.localStorage.getItem('token'), all: true })
     let { code, data } = parseData(res)
     if (code === 0) {
         dispatch(setTasks(data))

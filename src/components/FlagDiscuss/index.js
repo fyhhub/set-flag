@@ -27,6 +27,9 @@ class FlagDiscuss extends Component {
     onLoadMore = () => {
         this.fetchData(++pageIndex)
     }
+    handleAgree = e => {
+        console.log('ssss');
+    }
     render() {
         const { items, fetchListPending } = this.props.discuss
         const loadMore =  (
@@ -60,8 +63,8 @@ class FlagDiscuss extends Component {
                             <List.Item
                                 key={item.id}
                                 actions={[
-                                    <IconText type="like-o" text={item.agree} />,
-                                    <IconText type="message" text={item.comment_num} />
+                                    <IconText type="like-o" text={item.agree} onClick={this.handleAgree}/>,
+                                    <IconText type="message" text={item.comment_num} onClick={this.handleAgree} />
                                 ]}
                                 extra={
                                     <img
