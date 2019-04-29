@@ -31,7 +31,7 @@ class FlagReCommend extends Component {
                 <BookMark
                     content="文章推荐"
                     width="120px"
-                    color="rgb(255, 143, 105)"
+                    color="rgb(47, 223, 7)"
                     top='30px'
                 />
                 {

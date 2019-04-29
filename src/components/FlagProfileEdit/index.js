@@ -113,6 +113,7 @@ function ProfileEdit(props) {
                         <Upload
                             action='/setFlag/uploadAvatar'
                             accept='image/*'
+                            name='image'
                             beforeUpload={handleBeforeUpload}
                             onChange={handleUploadChange}
                         >

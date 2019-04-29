@@ -98,8 +98,6 @@ class FlagRecord extends Component {
     }
     render() {
         const { userInfo } = this.props
-        console.log(userInfo.token);
-        
         if (!userInfo.token && !window.localStorage.getItem('token')) {
             return <Redirect to='/login'/>
         }
