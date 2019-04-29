@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import BraftEditor from 'braft-editor'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { message } from 'antd'
 import 'braft-editor/dist/index.css'
 import './index.less'
 class Editor extends Component {
@@ -11,6 +12,43 @@ class Editor extends Component {
     handleEditorChange = (editorState) => {
         this.setState({ editorState })
         this.props.getText(editorState.toHTML())
+    }
+    myUploadFn = (param) => {
+        const serverURL = '/setFlag/uploadImg'
+        const xhr = new XMLHttpRequest()
+        const fd = new FormData()
+      
+        const successFn = (response) => {
+            if(xhr.readyState === 4) {
+                const res = JSON.parse(xhr.responseText)
+                const { code, msg, data } = res
+                if (code === 0) {
+                    param.success({
+                        url: data.image,
+                        meta: {
+                          
+                        }
+                    })
+                    message.success(msg)
+                } else {
+                    message.error(msg)
+                }
+
+            }
+        }
+        param.progress(100)
+        const errorFn = (response) => {
+            param.error({
+                msg: 'unable to upload.'
+            })
+        }
+        xhr.addEventListener("readystatechange", successFn, false)
+        xhr.addEventListener("error", errorFn, false)
+        xhr.addEventListener("abort", errorFn, false)
+        fd.append('file', param.file)
+        xhr.open('POST', serverURL, true)
+        param.progress(0)
+        xhr.send(fd)
     }
     render() {
         const { editorState } = this.state
@@ -23,6 +61,7 @@ class Editor extends Component {
                     </div>)
                 }
                 <BraftEditor
+                    media={{uploadFn: this.myUploadFn}}
                     readOnly={token ? false:true}
                     value={editorState}
                     onChange={this.handleEditorChange}

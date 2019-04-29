@@ -393,12 +393,21 @@ Mock.mock('/setFlag/comment', 'post', options => {
 })
 
 Mock.mock('/setFlag/uploadAvatar', 'post', options => {
-    console.log(options.body.get());
     return {
         code: 0,
-        msg: '评论成功',
+        msg: '上传成功',
         data: {
             avatar: 'https://www.fanyihui666.cn/static/images/IMG_0402.JPG'
+        }
+    }
+})
+
+Mock.mock('/setFlag/uploadImg', 'post', options => {
+    return {
+        code: 0,
+        msg: '上传成功',
+        data: {
+            image: 'https://www.fanyihui666.cn/static/images/IMG_0402.JPG'
         }
     }
 })
