@@ -24,8 +24,6 @@ class FlagReCommend extends Component {
     }
     render() {
         const { articles } = this.props
-        console.log(articles);
-        
         return (
             <div className='recommend'>
                 <BookMark
@@ -51,7 +49,7 @@ class FlagReCommend extends Component {
                                     <div className='times'>{item.date}</div>
                                     <div className='recommend-item'>
                                         <div className='recommend-item-img'  onClick={this.handleClickItem.bind(this,item.id)}>
-                                            <img src="https://hbimg.huabanimg.com/ba1df12271d681f9245bd742bb48cb326021853a62a49-xUDEz7_fw658" alt=""/>
+                                            <img src={item.image} alt=""/>
                                         </div>
                                         <div className='recommend-item-content'>
                                             <h3  onClick={this.handleClickItem.bind(this,item.id)}>{item.title}</h3>

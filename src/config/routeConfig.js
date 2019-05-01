@@ -8,6 +8,7 @@ const Profile = asyncComponent(() => import('../containers/Profile/index.js'))
 const FlagDetail = asyncComponent(() => import('../components/FlagDetail/index'))
 const FlagRecord = asyncComponent(() => import('../components/FlagRecord/index'))
 const FlagReCommend = asyncComponent(() => import('../components/FlagReCommend/index'))
+const FlagRank = asyncComponent(() => import('../components/FlagRank/index'))
 export default [
     {
         path: '/',
@@ -52,6 +53,11 @@ export default [
                 path: '/recommend',
                 exact: true,
                 component: FlagReCommend
+            },
+            {
+                path: '/rank',
+                exact: true,
+                component: FlagRank
             }
         ]
     },

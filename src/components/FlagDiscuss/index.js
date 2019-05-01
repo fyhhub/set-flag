@@ -4,6 +4,7 @@ import { List, Avatar, Icon, Button, Spin } from 'antd'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { fetchDataList } from '../../redux/actions/discuss'
+import LazyLoad from 'react-lazyload'
 import './index.less'
 
 const IconText = ({ type, text }) => (
@@ -27,11 +28,9 @@ class FlagDiscuss extends Component {
     onLoadMore = () => {
         this.fetchData(++pageIndex)
     }
-    handleAgree = e => {
-        console.log('ssss');
-    }
+
     render() {
-        const { items, fetchListPending } = this.props.discuss
+        const { items, fetchListPending, loadEnd } = this.props.discuss
         const loadMore =  (
             <div style={{display: 'flex',justifyContent: 'center', alignItems: 'center',marginTop: '20px'}}>
                 {
@@ -39,13 +38,19 @@ class FlagDiscuss extends Component {
                     (<Spin spinning={fetchListPending} size='large' />)
                     :(
                         <div style={{textAlign: 'center', marginTop: 12, height: 32, lineHeight: '32px'}}>
-                            <Button onClick={this.onLoadMore}>加载更多</Button>
+                            {
+                                loadEnd? '没有更多了': <Button onClick={this.onLoadMore}>加载更多</Button>
+                            }
                         </div>
                     )
                 }
             </div>
         ) 
+        const handleAgree = e => {
+            console.log(e);
+        }
         return (
+            
             <div className="discuss">
                 <BookMark
                     content="讨论区"
@@ -63,24 +68,27 @@ class FlagDiscuss extends Component {
                             <List.Item
                                 key={item.id}
                                 actions={[
-                                    <IconText type="like-o" text={item.agree} onClick={this.handleAgree}/>,
-                                    <IconText type="message" text={item.comment_num} onClick={this.handleAgree} />
+                                    <Link to={`/detail/${item.id}`}><IconText type="like-o" text={item.agree} onClick={handleAgree}/></Link>,
+                                    <Link to={`/detail/${item.id}`}><IconText type="message" text={item.comment_num} onClick={handleAgree} /></Link>
                                 ]}
                                 extra={
-                                    <img
-                                        width={272}
-                                        alt="logo"
-                                        src={item.image || 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'}
-                                    />
+                                    <Link to={`/detail/${item.id}`}>
+                                        <LazyLoad>
+                                            <img
+                                                style={{height: '150px', width: '200px', borderRadius: '8px'}}
+                                                alt="logo"
+                                                src={item.image || 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'}
+                                            />
+                                        </LazyLoad>
+                                    </Link>
                                 }
                             >
-                            
                                 <List.Item.Meta
                                     avatar={<Avatar src={item.avatar} />}
                                     title={<Link to={`/detail/${item.id}`}>{item.nickname}</Link>}
                                     description={item.title}
                                 />
-                                {item.content}
+                                <div dangerouslySetInnerHTML={{__html: item.content }}></div>
                             </List.Item>
                         )}
                     />

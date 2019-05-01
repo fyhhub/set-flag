@@ -59,11 +59,14 @@ export const getFlags = ({ offset, page }) => async dispatch => {
         dispatch(setLoaded(true))
         dispatch(setSuccess(false))
         let res = await ajax('/getFlags', { offset, page })
+
         let { code, data } = parseData(res)
         if (code === 0) {
-            dispatch(setLoaded(false))
-            dispatch(setSuccess(true))
-            dispatch(setFlags(data))
+            setTimeout(async () => {
+                dispatch(setLoaded(false))
+                dispatch(setSuccess(true))
+                dispatch(setFlags(data))
+            }, 500)
         }
     } catch(e) {
         console.log(e)  
@@ -78,7 +81,10 @@ export const setTasks = tasks => ({
 }) 
 
 export const getTasks = () => async dispatch => {
-    let res = await ajax('/getTasks', { token: window.localStorage.getItem('token'), all: true })
+    if (!window.localStorage.getItem('token')) {
+        return
+    }
+    let res = await ajax('/getTasks', { token: window.localStorage.getItem('token') || '' })
     let { code, data } = parseData(res)
     if (code === 0) {
         dispatch(setTasks(data))

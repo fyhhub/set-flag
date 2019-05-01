@@ -21,9 +21,10 @@ function FlagSetting(props) {
     const [drawerVisible, setDrawerVisible] = useState(false)
     const [punchTitle, setPunchTitle] = useState('')
     const [text, setText] = useState('')
-    const { isLoaded, flags, handleGetFlags, token, history, handleGetTasks, tasks } = props
+    const { isLoaded, flags, handleGetFlags, token, history, handleGetTasks, tasks, location } = props
+    
     useEffect(() => {
-        if (!flags.length) {
+        if (flags.length === 0) {
             handleGetFlags(offset, page)
         }
         handleGetTasks()
@@ -83,6 +84,8 @@ function FlagSetting(props) {
             message.error(msg)
         }
     }
+
+    
 
     const handleCancel = () => {
         setVisible(false)
@@ -167,6 +170,7 @@ function FlagSetting(props) {
                                         key={item.flag_id}
                                         token={token}
                                         history={history}
+                                        location={location}
                                         id={item.flag_id}
                                     />
                                 )
@@ -187,10 +191,10 @@ function FlagSetting(props) {
                         to: '#87d068',
                     }}
                     percent={
-                        parseInt((tasks.filter(e => e.is_true).length / tasks.length)*100)
+                        parseInt((tasks.filter(e => e.is_true === 'true').length / tasks.length)*100)
                     }
                     status={
-                        parseInt((tasks.filter(e => e.is_true).length / tasks.length)*100) === 100? 'success':'active'
+                        parseInt((tasks.filter(e => e.is_true === 'true').length / tasks.length)*100) === 100? 'success':'active'
                     }
                 />
                 <div className='setflag-task'>
@@ -205,13 +209,13 @@ function FlagSetting(props) {
                                             {item.punch_title}
                                         </Tag> 
                                         {
-                                            item.is_true? <Icon type="check-circle" style={{color: '#52c41a', fontSize: '23px', marginLeft: '10px'}}/> : null
+                                            item.is_true === 'true'? <Icon type="check-circle" style={{color: '#52c41a', fontSize: '23px', marginLeft: '10px'}}/> : null
                                         }
                                     </div>
                                     <div className='task-main'>
                                         <span style={{marginRight: '10px'}}>{item.punch_content}</span>
                                         {
-                                            item.is_true? null : <Button type="primary" icon="check" loading={index === loadIndex} onClick={handlePunchFlag.bind(this, index)}>打卡</Button>
+                                            item.is_true === 'true'? null : <Button type="primary" icon="check" loading={index === loadIndex} onClick={handlePunchFlag.bind(this, index)}>打卡</Button>
                                         }
                                     </div>
                                     <Divider ></Divider>

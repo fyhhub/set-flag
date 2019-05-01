@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Row, Col, Button, Avatar, Badge, Popover, Icon } from 'antd';
 import { NavLink, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import grilAvatar from '../../../assets/images/girl_avatar.jpg'
 import './index.less'
 const handleClickExit = (e) => {
     window.localStorage.removeItem('token')
@@ -34,6 +35,7 @@ class FlagHeader extends Component {
                                 <NavLink to='/home' className='nav-item' activeClassName='nav-active'>首页</NavLink>
                                 <NavLink to='/record' className='nav-item' activeClassName='nav-active'>打卡记录</NavLink>
                                 <NavLink to='/recommend' className='nav-item' activeClassName='nav-active'>文章推荐</NavLink>
+                                <NavLink to='/rank' className='nav-item' activeClassName='nav-active'>排行榜</NavLink>
                             </nav>
                         </div>
                         <div className='flag-header-right'>
@@ -41,7 +43,7 @@ class FlagHeader extends Component {
                                 userInfo && userInfo.token ? 
                                 (
                                     <Popover content={content}  placement="bottom" className='avatar-content'>
-                                        <Badge><Avatar shape="round" src={userInfo.avatar} icon="user" size={45} className='avatar'/></Badge>
+                                        <Badge><Avatar shape="round" src={userInfo.avatar || grilAvatar} size={45} className='avatar'/></Badge>
                                         <div className='nickname'>{userInfo.nickname}</div>
                                     </Popover>
                                 ):(

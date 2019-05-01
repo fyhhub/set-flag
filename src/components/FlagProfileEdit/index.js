@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Divider, Upload, Button, Icon, Input, Modal, message } from 'antd'
 import { connect } from 'react-redux'
 import { checkToken } from '../../redux/actions/global'
+import constant from '../../config/constant'
 import ajax from '../../config/ajax'
 import parseData from '../../utils/parseData'
 import './index.less'
@@ -23,6 +24,7 @@ function ProfileEdit(props) {
             if (code === 1) {
                 message.error(msg)
             } else {
+                handleCheckToken(window.localStorage.getItem('token'))
                 message.success(msg)
             }
         } catch(e) {
@@ -101,6 +103,9 @@ function ProfileEdit(props) {
             }
         }
     }
+    const obj = {
+        token: window.localStorage.getItem('token')
+    }
     return (
         <div className='profile-editor'>
             <h3>个人资料</h3>
@@ -111,12 +116,12 @@ function ProfileEdit(props) {
                     <div className='profile-form-avatar-upload'>
                         <span>支持 jpg、png 格式大小 5M 以内的图片</span>
                         <Upload
-                            action='http://localhost:8080/setFlag/uploadAvatar'
+                            action={`${constant.imageBaseAddress}/uploadAvatar`}
                             accept='image/*'
                             name='image'
                             beforeUpload={handleBeforeUpload}
                             onChange={handleUploadChange}
-                            data={{token: window.localStorage.getItem('token')}}
+                            data={(file) =>{ return obj }}
                         >
                             <Button type='primary'>
                                 <Icon type="upload" /> 点击上传

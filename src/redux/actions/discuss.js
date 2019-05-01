@@ -7,6 +7,7 @@ const ADD_LIST_ITEM = 'discuss/ADD_LIST_ITEM'
 const SET_USERINFO = 'discuss/SET_USERINFO'
 const SET_COMMENTS = 'discuss/SET_COMMENTS'
 const SET_ARTICLES = 'discuss/SET_ARTICLES'
+const SET_LOADEND = 'discuss/SET_LOADEND'
 const initState = {
     items: [],
     pageList: {},
@@ -14,6 +15,7 @@ const initState = {
     fetchListPending: false,
     fetchListError: null,
     listNeedReload: false,
+    loadEnd: false,
     userInfo: {},
     comments: [],
     articles: []
@@ -75,6 +77,12 @@ export default (state = initState, action = {}) => {
                 articles: [...action.data]
             }
         }
+        case SET_LOADEND: {
+            return {
+                ...state,
+                loadEnd: true
+            }
+        }
         default:
             return state
     }
@@ -112,12 +120,19 @@ export const setArticles = data => ({
     data
 })
 
+export const setLoadEnd = () => ({
+    type: SET_LOADEND
+})
 
 
 export const fetchDataList = (page) => async dispatch => {
     dispatch(fetchListPending())
     const res = await ajax('/getDailyPunch',{ page })
     const {code, msg, data} = parseData(res)
+    
+    if (data.items.length === 0) {
+        dispatch(setLoadEnd())
+    }
     if (code === 0) {
         dispatch(fetchListSuccess({...data, page}))
     } else {

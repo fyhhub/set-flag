@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { message } from 'antd'
 import 'braft-editor/dist/index.css'
 import './index.less'
+import constant from '../../../config/constant'
 class Editor extends Component {
     state = {
         editorState: BraftEditor.createEditorState(null)
@@ -14,10 +15,9 @@ class Editor extends Component {
         this.props.getText(editorState.toHTML())
     }
     myUploadFn = (param) => {
-        const serverURL = '/setFlag/uploadImg'
+        const serverURL = constant.imageBaseAddress + '/uploadImg'
         const xhr = new XMLHttpRequest()
         const fd = new FormData()
-      
         const successFn = (response) => {
             if(xhr.readyState === 4) {
                 const res = JSON.parse(xhr.responseText)

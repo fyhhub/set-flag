@@ -1,6 +1,8 @@
 import ajax from '../../config/ajax'
 import parseData from '../../utils/parseData'
 const SET_USER_INFO = 'global/SET_USER_INFO'
+const SET_ALLTASKS = 'global/SET_ALLTASKS'
+const SET_RANK = 'global/SET_RANK'
 const initState = {
     userInfo: {
         token: '',
@@ -10,7 +12,9 @@ const initState = {
         avatar: '',
         nickname: '',
         score: 0
-    }
+    },
+    allTasks: [],
+    rank: []
 }
 export default (state = initState, action = {}) => {
   switch (action.type) {
@@ -20,6 +24,18 @@ export default (state = initState, action = {}) => {
             ...state,
             userInfo: userInfo,
         }
+    case SET_ALLTASKS: {
+        return {
+            ...state,
+            allTasks: [...action.data]
+        }
+    }
+    case SET_RANK: {
+        return {
+            ...state,
+            rank: [...action.data]
+        }
+    }
     default:
       return state;
   }
@@ -41,4 +57,13 @@ export const checkToken = token => async dispatch => {
     }
 }
 
+export const setAllTasks = data => ({
+    type: SET_ALLTASKS,
+    data
+})
+
+export const setRank = data => ({
+    type: SET_RANK,
+    data
+})
 
