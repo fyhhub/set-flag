@@ -1,3 +1,3 @@
 export default {
-    imageBaseAddress: 'http://localhost:8080/setFlag'
+    imageBaseAddress: 'http://http://129.211.8.158:8080/setFlag'
 }
