@@ -58,7 +58,7 @@ class FlagDetail extends Component {
         })
         const id = this.props.match.params.id
         const parent_id = this.state.replyId
-        const res = await ajax('/comment', { comment_content: this.state.value, id, parent_id }, 'post')
+        const res = await ajax('/comment', { comment_content: this.state.value.replace('<', '&lt;').replace('>', '&gt;'), id, parent_id }, 'post')
         const { code, data, msg } = parseData(res)
         if (code === 0) {
             this.setState({
