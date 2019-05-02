@@ -213,7 +213,7 @@ function FlagSetting(props) {
                                             item.is_true === 'true'? <Icon type="check-circle" style={{color: '#52c41a', fontSize: '23px', marginLeft: '10px'}}/> : null
                                         }
                                     </div>
-                                    <div className='task-main'>
+                                    <div className='task-main' style={{display: 'flex', justifyContent: 'space-between'}}>
                                         <span style={{marginRight: '10px'}}>{item.punch_content}</span>
                                         {
                                             item.is_true === 'true'? null : <Button type="primary" icon="check" loading={index === loadIndex} onClick={handlePunchFlag.bind(this, index)}>打卡</Button>

@@ -75,7 +75,7 @@ class FlagDiscuss extends Component {
                                     <Link to={`/detail/${item.id}`}>
                                         <LazyLoad>
                                             <img
-                                                style={{height: '150px', width: '200px', borderRadius: '8px'}}
+                                                style={{height: '150px', width: '200px', borderRadius: '8px', maxHeight: '300px'}}
                                                 alt="logo"
                                                 src={item.image || 'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'}
                                             />

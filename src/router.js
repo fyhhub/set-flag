@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { BrowserRouter as Router , Route, Switch } from "react-router-dom"
 import routeConfig from "./config/routeConfig"
 import { connect } from 'react-redux'
 import Auth from './utils/Auth'
