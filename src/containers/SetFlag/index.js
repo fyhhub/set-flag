@@ -38,10 +38,9 @@ class App extends React.Component {
         return (
             <div className='setFlag background' ref='app'>
                 <div className='setFlag-content'>
-                    <span className='setFlag-content-title hvr-wobble-horizontal'>立个 Flag</span>
+                    <div className='setFlag-content-title hvr-wobble-horizontal'>立个 Flag</div>
                     <div className='setFlag-content-flag'>
-                        <span>Flag: 每天坚持英语四级</span>    
-                        <span>您已坚持 <em>100</em> 天</span>
+                        <span>无志者常立志，有志者立常志</span>
                     </div>
                     <div className='setFlag-content-btn'>
                         <Button type='primary' size='large'><Link to='/home'>开始探索</Link></Button>  

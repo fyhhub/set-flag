@@ -105,6 +105,7 @@ function FlagSetting(props) {
         const res = await ajax('/punchFlag', { punch_id: tasks[index].punch_id }, 'post')
         const {code, msg} = parseData(res)
         if (code === 0) {
+            message.success('打卡成功,积分 +10')
             setLoadIndex(-1)
             handleGetTasks()
         } else {
@@ -139,7 +140,7 @@ function FlagSetting(props) {
         const { code, msg, data } = parseData(res)
         const { handleAddListItem } = props
         if (code === 0) {
-            message.success(msg)
+            message.success(msg+',积分 +15')
             setPunchTitle('')
             setDrawerVisible(false)
             setText('')
